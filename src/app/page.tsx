@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <p>PROYECTO JUAN 123</p>
+    <p className="font-bold">PROYECTO JUAN 123</p>
   );
 }
