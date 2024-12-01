@@ -21,7 +21,7 @@ model User {
   mail                  String   @unique
   password              String?
   resetPasswordToken    String?  // Opcional
-  resetPasswordExpires  DateTime? // Opcional
+  resetPasswordExpires  DateTime? @db.Timestamptz
   degreeId              Int      @default(1)
   degree                Degree?  @relation(fields: [degreeId], references: [id])
   

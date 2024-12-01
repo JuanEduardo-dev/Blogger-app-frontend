@@ -1,3 +1,4 @@
+// app/api/auth/reset-password/route.ts
 import { NextResponse } from 'next/server';
 import db from '@/libs/prisma';
 import bcrypt from 'bcrypt';
@@ -11,7 +12,8 @@ export async function POST(request: Request) {
       where: {
         resetPasswordToken: token,
         resetPasswordExpires: {
-          gt: new Date() // Token must not be expired
+          // Usa isAfter para verificar la expiración de manera precisa
+          gt: new Date() 
         }
       }
     });

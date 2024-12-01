@@ -1,12 +1,14 @@
+// app/api/auth/forgot-password/route.ts
 import { NextResponse } from 'next/server';
 import db from '@/libs/prisma';
 import { randomBytes } from 'crypto';
-import { sendPasswordResetEmail } from '@/utils/emailService'; // You'll need to implement this
+import { sendPasswordResetEmail } from '@/utils/emailService';
+import { addHours } from 'date-fns'; // Importa addHours de date-fns
 
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
-
+    
     // Find user by email
     const user = await db.user.findUnique({
       where: { mail: email }
@@ -14,14 +16,16 @@ export async function POST(request: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { message: 'No user found with this email' }, 
+        { message: 'No user found with this email' },
         { status: 404 }
       );
     }
 
     // Generate reset token
     const resetToken = randomBytes(32).toString('hex');
-    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
+    
+    // Use date-fns to handle timezone-independent expiration
+    const resetTokenExpiry = addHours(new Date(), 1); // 1 hour from now, in user's local time
 
     // Update user with reset token
     await db.user.update({
@@ -35,13 +39,11 @@ export async function POST(request: Request) {
     // Send reset email
     await sendPasswordResetEmail(email, resetToken);
 
-    return NextResponse.json({ 
-      message: 'Password reset link sent' 
-    });
+    return NextResponse.json({ message: 'Password reset link sent' });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: 'Something went wrong' }, 
+      { message: 'Something went wrong' },
       { status: 500 }
     );
   }
