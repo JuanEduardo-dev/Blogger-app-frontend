@@ -9,9 +9,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+  			'pallette-60': '#FFFFFF',
+  			'pallette-30': '#F9FAFF',
+  			'pallette-10': '#045988',
+  			'pallette-10-contrast': '#1B3C59'
+  		},
     },
   },
   plugins: [],

@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String   @id @default(uuid()) @db.Uuid
+  name                  String
+  lastName              String
+  bio                   String?  // Esto es opcional, ya que en tu base de datos tiene valor NULL por defecto
+  mail                  String   @unique
+  password              String?
+  passwordToken         String? // Esto es opcional también, como en la base de datos
+  resetPasswordToken    String?  // Opcional
+  resetPasswordExpires  DateTime? // Opcional
+  degreeId              Int      @default(1)
+  degree                Degree?  @relation(fields: [degreeId], references: [id])
+  
+  @@map("user") // Mapea este modelo a la tabla 'user' en la base de datos
+}
+
+model Degree {
+  id    Int    @id @default(autoincrement())
+  title String
+  
+  users User[] // Relación con los usuarios (esto es opcional, dependiendo de cómo quieras estructurar la relación)
+  @@map("degree")
+}
