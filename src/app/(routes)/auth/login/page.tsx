@@ -5,6 +5,7 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface LoginFormInputs {
   email: string;
@@ -90,6 +91,9 @@ function LoginPage() {
         <button className="w-full bg-blue-500 text-white p-3 rounded-lg mt-2">
           Login
         </button>
+        <Link href="./forgot-password">
+          Recuperar contraseña
+        </Link>
       </form>
     </div>
   );

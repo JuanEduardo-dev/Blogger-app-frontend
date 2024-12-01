@@ -20,7 +20,6 @@ model User {
   bio                   String?  // Esto es opcional, ya que en tu base de datos tiene valor NULL por defecto
   mail                  String   @unique
   password              String?
-  passwordToken         String? // Esto es opcional también, como en la base de datos
   resetPasswordToken    String?  // Opcional
   resetPasswordExpires  DateTime? // Opcional
   degreeId              Int      @default(1)
