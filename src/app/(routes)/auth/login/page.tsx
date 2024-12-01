@@ -1,7 +1,7 @@
 //blogger-front/src/app/(routes)/auth/login/page.tsx
 
 "use client";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

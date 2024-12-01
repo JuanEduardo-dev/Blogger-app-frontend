@@ -1,3 +1,5 @@
+//blogger-front/src/app/(routes)/auth/reset-password/[token]/page.tsx
+
 "use client";
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -15,7 +17,6 @@ export default function ResetPasswordPage() {
   const { 
     register, 
     handleSubmit, 
-    watch,
     formState: { errors } 
   } = useForm<ResetPasswordInputs>();
 
@@ -44,9 +45,10 @@ export default function ResetPasswordPage() {
       } else {
         setError(result.message || 'Something went wrong');
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
     }
+    
   };
 
   return (

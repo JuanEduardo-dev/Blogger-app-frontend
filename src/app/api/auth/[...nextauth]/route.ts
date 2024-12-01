@@ -12,13 +12,13 @@ interface Credentials {
 }
 
 // Definir el tipo para la respuesta del usuario después de la autenticación
-interface AuthUser {
+/*interface AuthUser {
   id: string;
   name: string;
   email: string;
-}
+}*/
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",

@@ -1,4 +1,4 @@
-//blogger-front/src/app/api/auth/register/route.ts
+// blogger-front/src/app/api/auth/register/route.ts
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import db from "@/libs/prisma";
@@ -52,15 +52,17 @@ export async function POST(request: Request): Promise<NextResponse> {
       },
     });
 
-    // Desestructuramos la contraseña del objeto `newUser` antes de devolverlo
-    const { password: _, ...user } = newUser;
+    // Usar desestructuración para excluir la contraseña
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userWithoutPassword } = newUser;
 
-    return NextResponse.json(user);
+
+    return NextResponse.json(userWithoutPassword);
   } catch (error) {
     // Manejo de errores, retornamos el mensaje de error
     return NextResponse.json<ErrorResponse>(
       {
-        message: (error as Error).message, // Usamos `error as Error` para asegurarnos de que tiene la propiedad `.message`
+        message: (error as Error).message,
       },
       {
         status: 500,

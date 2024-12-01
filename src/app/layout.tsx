@@ -16,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <Navbar />
         <main className="mt-24">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );

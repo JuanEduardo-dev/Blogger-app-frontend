@@ -1,7 +1,7 @@
 //blogger-front/src/app/(routes)/auth/register/page.tsx
 
 "use client";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 interface RegisterFormInputs {

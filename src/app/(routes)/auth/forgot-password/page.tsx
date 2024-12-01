@@ -19,7 +19,7 @@ export default function ForgotPasswordPage() {
     try {
       setMessage(null);
       setError(null);
-
+  
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: {
@@ -27,17 +27,18 @@ export default function ForgotPasswordPage() {
         },
         body: JSON.stringify(data),
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok) {
         setMessage('Password reset link sent to your email');
       } else {
         setError(result.message || 'Something went wrong');
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
     }
+    
   };
 
   return (
