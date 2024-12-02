@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { message: 'Invalid or expired reset token' }, 
+        { message: 'Token de reinicio no válido o vencido' }, 
         { status: 400 }
       );
     }
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ 
-      message: 'Password reset successfully' 
+      message: 'Restablecimiento de contraseña exitoso' 
     });
   } catch (error) {
     console.error(error);

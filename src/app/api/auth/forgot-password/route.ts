@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { message: 'No user found with this email' },
+        { message: 'Ningún usuario encontrado con este correo' },
         { status: 404 }
       );
     }
@@ -39,11 +39,11 @@ export async function POST(request: Request) {
     // Send reset email
     await sendPasswordResetEmail(email, resetToken);
 
-    return NextResponse.json({ message: 'Password reset link sent' });
+    return NextResponse.json({ message: 'Enlace de restablecimiento de contraseña enviado' });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: 'Something went wrong' },
+      { message: 'Algo salió mal' },
       { status: 500 }
     );
   }

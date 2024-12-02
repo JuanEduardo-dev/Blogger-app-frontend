@@ -1,17 +1,28 @@
+'use client';
+
+import { usePathname} from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  const authRoutes = ['/auth/login', '/auth/register'];
+  const isAuthRoute = authRoutes.includes(pathname)
+
   return (
     <>
-      <footer className="bg-pallette-10-contrast text-white py-12 lg:py-16">
+    <footer className={`
+      ${!isAuthRoute ? 'block' : 'hidden'}
+      `}>
+      <div className="bg-pallette-10-contrast text-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo y descripción */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/images/logo.png"
+              src="/images/logo-footer.png"
               alt="Buccasan Logo"
               style={{
                 width: 'auto', height: '64px',
@@ -136,7 +147,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-      </footer>
+      </div>
       
       {/* Copyright Bar */}
       <div className="bg-pallette-10-contrast bg-gradient-to-b from-black/25 to-black/25 text-pallette-60 py-4">
@@ -144,6 +155,7 @@ const Footer = () => {
           <p>© {new Date().getFullYear()} PropuestasPerú.</p>
         </div>
       </div>
+    </footer>
     </>
   );
 };

@@ -29,7 +29,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials: Credentials | undefined) {
         // Verificamos que las credenciales no sean `undefined`
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Email and password are required");
+          throw new Error("Se requieren correo electrónico y contraseña");
         }
 
         // Buscar si ya existe un usuario con el mismo correo electrónico
@@ -40,11 +40,11 @@ const authOptions: NextAuthOptions = {
         });
 
         // Si no se encuentra el usuario, lanzamos un error
-        if (!userFound) throw new Error("No user found");
+        if (!userFound) throw new Error("Ningún usuario encontrado");
 
         // Verificamos si la contraseña es `null`, ya que bcrypt no puede manejar `null`
         if (!userFound.password) {
-          throw new Error("Password is missing in database");
+          throw new Error("Falta la contraseña en la base de datos");
         }
 
         // Comprobamos si la contraseña coincide
@@ -63,6 +63,12 @@ const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/login", // Página personalizada de inicio de sesión
+  },
+  session: {
+    // Duración de la sesión en segundos
+    maxAge: 24 * 60 * 60, // 24 horas
+    // Actualizar la sesión cada vez que hay actividad
+    updateAge: 60 * 60, // 1 hora
   },
 };
 

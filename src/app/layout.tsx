@@ -15,9 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Geist:wght@700&display=swap" rel="stylesheet" />
+      </head>
       <body>
         <Navbar />
-        <main className="mt-24">
+        <main className="mt-[90px]">
           {children}
         </main>
         <Footer />
