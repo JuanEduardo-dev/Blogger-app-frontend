@@ -1,6 +1,6 @@
 // src/app/api/degrees/route.ts
 import { NextResponse } from "next/server";
-import db from "@/libs/prisma";
+import db from "@/lib/prisma";
 
 export async function GET() {
   try {

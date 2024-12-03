@@ -2,7 +2,7 @@
 
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import db from "@/libs/prisma";
+import db from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
 // Definir el tipo para las credenciales de autenticación
@@ -50,7 +50,7 @@ const authOptions: NextAuthOptions = {
         // Comprobamos si la contraseña coincide
         const matchPassword = await bcrypt.compare(credentials.password, userFound.password);
 
-        if (!matchPassword) throw new Error("Wrong password");
+        if (!matchPassword) throw new Error("Contraseña incorrecta");
 
         // Retornamos la información del usuario si la autenticación fue exitosa
         return {

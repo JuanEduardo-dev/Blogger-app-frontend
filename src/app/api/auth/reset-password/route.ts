@@ -1,6 +1,6 @@
 // app/api/auth/reset-password/route.ts
 import { NextResponse } from 'next/server';
-import db from '@/libs/prisma';
+import db from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 
 export async function POST(request: Request) {
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: 'Something went wrong' }, 
+      { message: 'Algo salió mal' }, 
       { status: 500 }
     );
   }

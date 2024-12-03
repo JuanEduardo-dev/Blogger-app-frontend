@@ -6,13 +6,46 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from "@/components/ui/Shadcn/navigation-menu"
+import React from 'react';
+import { cn } from '@/lib/utils';
+
+
 const Navbar = () => {
   const pathname = usePathname();
 
-  const authRoutes = ['/auth/login', '/auth/register'];
-  const isAuthRoute = authRoutes.includes(pathname)
+  const authRoutes = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
+  const isAuthRoute = authRoutes.includes(pathname) || pathname.startsWith('/auth/reset-password/');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+  const [fechaFormateada, setFechaFormateada] = useState<string>('');
+
+  useEffect(() => {
+    // Obtener la fecha y formatearla
+    const fecha = new Date();
+
+    // Opciones de formato en español
+    const opciones: Intl.DateTimeFormatOptions = {
+      weekday: 'long', // Nombre completo del día (por ejemplo, 'lunes')
+      year: 'numeric', // Año completo (por ejemplo, '2020')
+      month: 'long',   // Nombre completo del mes (por ejemplo, 'marzo')
+      day: 'numeric',  // Día del mes (por ejemplo, '26')
+    };
+
+    // Formatear la fecha en español
+    const fechaFormateada = new Intl.DateTimeFormat('es-ES', opciones).format(fecha);
+
+    // Actualizar el estado con la fecha formateada
+    setFechaFormateada(fechaFormateada);
+  }, []);
 
   // Route change detection
   useEffect(() => {
@@ -22,7 +55,7 @@ const Navbar = () => {
   // Scroll handling
   useEffect(() => {
     const handleScroll = () => {
-      setIsFixed(window.scrollY > 96);
+      setIsFixed(window.scrollY > 90);
     };
   
     handleScroll(); // Check initial scroll state
@@ -38,8 +71,8 @@ const Navbar = () => {
   
   const navLinks = [
     { href: '/', label: 'Inicio' },
-    { href: '/nosotros', label: 'Temas' },
-    { href: '/sede', label: 'Propuestas' }
+    { href: '/temas', label: 'Temas' },
+    { href: '/propuestas', label: 'Propuestas' }
   ];
 
   // Logo Component
@@ -79,6 +112,47 @@ const Navbar = () => {
   // Nav Links Component
   const NavLinks = () => (
     <>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <Link href="/" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Inicio
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Temas</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className=" w-[400px] gap-3">
+                  <ListItem
+                    title="Organización política y administrativa del perú"
+                    href="/organizacion-politica-y-administrativa-del-peru"
+                  >
+                    Descubre como se estructura y organiza el Perú
+                  </ListItem>
+              </ul>
+              <ul className=" w-[400px] gap-3">
+                  <ListItem
+                    title="Historia y evolución de los movimiento sociales en el perú"
+                    href="/evolucion-de-los-movimientos-sociales-en-el-peru"
+                  >
+                    Conoce como evolucionaron los movimientos sociales hasta la actualidad
+                  </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Propuestas
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+
+      {/*
       {navLinks.map((link) => (
         <Link 
           key={link.href}
@@ -89,16 +163,15 @@ const Navbar = () => {
         >
 
           {link.label}
-          {/*
+
           {!mobile && (
             <span className={`absolute bottom-0 left-0 h-[1px] bg-current transition-all duration-200 ease-out 
               ${pathname === link.href ? 'w-full' : 'w-0'}
               group-hover:w-full
             `}></span>
           )}
-          */}
-        </Link>
-      ))}
+        </Link>         
+      ))} */}
     </>
   );
 
@@ -168,26 +241,28 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`${isFixed ? 'fixed' : 'absolute'} top-0 left-0 right-0 w-full z-50 flex-col transition-all duration-100
+      className={`${isFixed ? 'fixed' : 'relative'} top-0 left-0 right-0 w-full z-50 flex-col transition-all duration-100
         ${
           isFixed 
-            ? 'h-14 bg-pallette-60' 
-            : 'bg-transparent'
-        }`}
+            ? 'h-14' 
+            : ''
+        }
+        ${isAuthRoute ? 'bg-transparent' : 'bg-pallette-60'}
+        `}
     >
-      <div  className={`max-w-7xl mx-auto m-1 justify-end items-center px-4 text-pallette-10
+      <div  className={`max-w-7xl mx-auto m-1 justify-between items-center px-4 text-gray-500
         ${!isFixed && !isAuthRoute ? 'flex' : 'hidden'}`
       }>
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5a2.5 2.5 0 0 1 0-5a2.5 2.5 0 0 1 0 5"></path></svg>
-        
-        <p>Av. Los Laureles 328</p>
+        <div className='flex'>
+          <div className='flex bg-orange-600 items-center'>
+            <p className='text-white pl-2 pr-2'>Tendencias</p>
+          </div>
+        </div>
 
-        <a className='ml-4 flex items-center' href="https://linktr.ee/buccasan" target="_blank" rel="noopener noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 6l2 -2c1 -1 3 -1 4 0l1 1c1 1 1 3 0 4l-5 5c-1 1 -3 1 -4 0M11 18l-2 2c-1 1 -3 1 -4 0l-1 -1c-1 -1 -1 -3 0 -4l5 -5c1 -1 3 -1 4 0"></path></svg>
-          <p>Linktree</p>
-        </a>
+        <p>{fechaFormateada}</p>
       </div>
-      <hr className={`${!isFixed && !isAuthRoute ? 'flex' : 'hidden'}`}/>
+      <hr 
+/>
 
       <div
         className={`
@@ -217,6 +292,9 @@ const Navbar = () => {
           {/* Desktop Social Icons */}
           <div className={`
               ${!isAuthRoute ? 'hidden lg:flex' : 'flex'}
+              ${isAuthRoute && 
+                (pathname !== "/auth/register" && pathname !== "/auth/login")
+                 ? 'hidden' : ''}
               `}>
             <AuthButtons />
           </div>
@@ -229,3 +307,29 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  )
+})
+ListItem.displayName = "ListItem"

@@ -1,7 +1,7 @@
 // blogger-front/src/app/api/auth/register/route.ts
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import db from "@/libs/prisma";
+import db from "@/lib/prisma";
 
 interface UserData {
   name: string;

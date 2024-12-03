@@ -1,6 +1,6 @@
 // app/api/auth/forgot-password/route.ts
 import { NextResponse } from 'next/server';
-import db from '@/libs/prisma';
+import db from '@/lib/prisma';
 import { randomBytes } from 'crypto';
 import { sendPasswordResetEmail } from '@/utils/emailService';
 import { addHours } from 'date-fns'; // Importa addHours de date-fns

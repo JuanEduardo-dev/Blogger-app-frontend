@@ -8,8 +8,9 @@ import { MapPin, Mail, Phone } from 'lucide-react';
 const Footer = () => {
   const pathname = usePathname();
 
-  const authRoutes = ['/auth/login', '/auth/register'];
-  const isAuthRoute = authRoutes.includes(pathname)
+  const authRoutes = ['/auth/login', '/auth/register', '/auth/forgot-password'];
+  
+  const isAuthRoute = authRoutes.includes(pathname) || pathname.startsWith('/auth/reset-password/');
 
   return (
     <>
