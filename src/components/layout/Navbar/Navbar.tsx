@@ -18,12 +18,19 @@ import {
 import React from 'react';
 import { cn } from '@/lib/utils';
 
+import { PiTreeStructure } from "react-icons/pi";
+import { HiOutlineUserGroup } from "react-icons/hi2";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   const authRoutes = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
   const isAuthRoute = authRoutes.includes(pathname) || pathname.startsWith('/auth/reset-password/');
+
+  const isActive = (ruta: string, exact: boolean = false) => {
+    return exact ? pathname === ruta : pathname.startsWith(ruta);
+  };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [fechaFormateada, setFechaFormateada] = useState<string>('');
@@ -116,36 +123,146 @@ const Navbar = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink 
+                className={`
+                  ${navigationMenuTriggerStyle()} 
+                  ${isActive('/', true) ? 'bg-gray-100' : ''}
+                `}
+              >
                 Inicio
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Temas</NavigationMenuTrigger>
+            <Link href={'/temas'}>
+              <NavigationMenuTrigger 
+                className={isActive('/temas', false) ? 'bg-gray-100' : ''}
+              >
+                Temas
+              </NavigationMenuTrigger>
+            </Link>
             <NavigationMenuContent>
-              <ul className=" w-[400px] gap-3">
-                  <ListItem
-                    title="Organización política y administrativa del perú"
-                    href="/organizacion-politica-y-administrativa-del-peru"
-                  >
-                    Descubre como se estructura y organiza el Perú
-                  </ListItem>
-              </ul>
-              <ul className=" w-[400px] gap-3">
-                  <ListItem
-                    title="Historia y evolución de los movimiento sociales en el perú"
-                    href="/evolucion-de-los-movimientos-sociales-en-el-peru"
-                  >
-                    Conoce como evolucionaron los movimientos sociales hasta la actualidad
-                  </ListItem>
-              </ul>
+              <div className="w-[325px] gap-3">
+                <ul className=" gap-3">
+                    <ListItem href="/temas/organizacion-politica-y-administrativa-del-peru">
+                      <span className='flex items-center gap-2 text-black'>
+                        <PiTreeStructure className='text-lg' />
+                        Organización política y administrativa
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Organización Nacional
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Organización Regional
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Organización Local
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Análisis comparativo
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Aportes de la Ingeniería de Sistemas
+                      </span>
+                    </ListItem>
+                </ul>
+                <ul className=" gap-3">
+                    <ListItem href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                      <span className='flex items-center gap-2 text-gray-700 '>
+                        <HiOutlineUserGroup className='text-lg' />
+                        Historia y evolución de los movimiento sociales
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Primeros Movimientos
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Consolidación
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Transformación y desarrollo
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Nuevos Movimientos
+                      </span>
+                    </ListItem>
+                    <ListItem 
+                      className='pl-8'
+                      href="/temas/organizacion-politica-y-administrativa-del-peru"
+                    >
+                      <span className='flex items-center gap-2 text-gray-500 '>
+                        Movimientos Contemporáneos
+                      </span>
+                    </ListItem>
+                </ul>
+              </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink 
+                className={`
+                  ${navigationMenuTriggerStyle()} 
+                  ${isActive('/propuestas', false) ? 'bg-gray-100' : ''}
+                `}
+              >
                 Propuestas
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink 
+                className={`
+                  ${navigationMenuTriggerStyle()} 
+                  ${isActive('/tus-propuestas', false) ? 'bg-gray-100' : ''}
+                `}
+              >
+                Tus propuestas
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -261,8 +378,7 @@ const Navbar = () => {
 
         <p>{fechaFormateada}</p>
       </div>
-      <hr 
-/>
+      <hr />
 
       <div
         className={`
