@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
+import { FcGoogle } from "react-icons/fc";
 
 import Link from 'next/link';
 
@@ -60,16 +61,23 @@ function LoginPage() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/" });
+    } catch (error) {
+      console.error("Error en el inicio de sesión con Google", error);
+    }
+  };
+
   return (
-    <div className="h-screen mt-0 flex flex-row items-center lg:justify-between">
-      <div className="flex flex-col justify-center items-center space-y-4 w-full lg:w-1/2">
+    <div className="h-[calc(100svh-114px)] flex flex-row items-center justify-center">
+      <div className="flex flex-col justify-center items-center space-y-4 w-full lg:w-1/2 ml-4 mr-4 lg:mg-0">
         <div className="text-center">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-2">Iniciar Sesión</h1>
-          <p className="text-gray-500 text-base">Transforma tus ideas en propuestas con PropuestasPerú</p>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 sm:mb-2 hidden sm:block">Iniciar Sesión</h1>
+          <p className="text-gray-500 text-base block">Transforma tus ideas en propuestas innovadoras.</p>
         </div>
-        <div className="w-full max-w-md bg-white rounded-xl p-8 border border-gray-200 shadow-[0_4px_24px_0_#00000004,0_4px_32px_0_#00000004,0_2px_64px_0_#00000003,0_16px_32px_0_#00000003]">
+        <div className="w-full max-w-md bg-white rounded-xl p-6 border border-gray-200 shadow-[0_4px_24px_0_#00000004,0_4px_32px_0_#00000004,0_2px_64px_0_#00000003,0_16px_32px_0_#00000003]">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <p className="text-gray-500 text-sm text-center">¡Bienvenido de nuevo! Por favor, ingresa tus datos.</p>
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded-md text-sm">
                 {error}
@@ -167,6 +175,24 @@ function LoginPage() {
               </p>
             </div>
           </form>
+          <div className="flex items-center justify-center my-4">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-4 text-gray-500">o</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+          {/* Botón de Google */}
+          <div className="mt-4">
+            <button
+              type="button" // Asegura que no se envíe el formulario
+              onClick={handleGoogleSignIn}
+              className="w-full flex items-center justify-center bg-white border border-gray-300 rounded-md py-2 text-sm font-medium text-black hover:bg-gray-50"
+            >
+              <div className="flex items-center">         
+                <FcGoogle className="w-5 h-5 mr-2" />
+                Continuar con Google
+              </div>
+            </button>
+          </div>
         </div>
       </div>
       <div className="hidden lg:block lg:w-1/2 relative">

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from 'next/link';
 import ReCAPTCHA from "react-google-recaptcha";
+import { signIn } from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
 
 interface Degree {
   id: number;
@@ -130,6 +132,14 @@ function RegisterPage() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/" });
+    } catch (error) {
+      console.error("Error en el inicio de sesión con Google", error);
+    }
+  };
+
   const goBackToStep1 = () => {
     resetRecaptcha();
     setCurrentStep(1);
@@ -240,7 +250,7 @@ function RegisterPage() {
       >
         Siguiente
       </button>
-      <br /><hr />
+      <br />
       <div className="text-center">
         <p className="text-sm text-gray-600">
           ¿Ya tienes una cuenta? {" "}
@@ -349,7 +359,7 @@ function RegisterPage() {
               focus:outline-none focus:ring-blue-500 focus:border-blue-500
               transition-colors duration-300 ease-in-out"
           >
-            <option value="">Selecciona su grado académico</option>
+            <option value="">Seleccione una opción</option>
             {degrees.map((degree) => (
               <option key={degree.id} value={degree.id}>
                 {degree.title}
@@ -371,7 +381,7 @@ function RegisterPage() {
             onClick={goBackToStep1} 
             className="text-sm text-blue-600 hover:text-blue-500 transition-colors cursor-pointer"
           >
-            ← Volver al paso anterior
+            ← Volver
           </p>
         </div>
         <button 
@@ -401,16 +411,34 @@ function RegisterPage() {
   );
 
   return (
-    <div className="h-screen mt-0 flex flex-row items-center lg:justify-between">
-      <div className="flex flex-col justify-center items-center space-y-2 w-full">
+    <div className="h-full sm:h-[calc(100svh-114px)] flex flex-row items-center justify-center">
+      <div className="flex flex-col justify-center items-center space-y-2 w-full p-4">
         <div className="text-center">
-          <h1 className="text-3xl font-semibold text-gray-800">
-            {currentStep === 1 ? "Crear una cuenta" : "Cuéntanos Sobre Ti"}
+          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
+            {currentStep === 1 ? "Crear cuenta" : "Cuéntanos Sobre Ti"}
           </h1>
         </div>
         <div className="w-full max-w-md p-4 border-gray-200">
         {currentStep === 1 && renderStep1()}
         {currentStep === 2 && renderStep2()}
+          <div className="flex items-center justify-center my-4">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-4 text-gray-500">o</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+          {/* Botón de Google */}
+          <div className="mt-4">
+            <button
+              type="button" // Asegura que no se envíe el formulario
+              onClick={handleGoogleSignIn}
+              className="w-full flex items-center justify-center bg-white border border-gray-300 rounded-md py-2 text-sm font-medium text-black hover:bg-gray-50"
+            >
+              <div className="flex items-center">         
+                <FcGoogle className="w-5 h-5 mr-2" />
+                Continuar con Google
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>

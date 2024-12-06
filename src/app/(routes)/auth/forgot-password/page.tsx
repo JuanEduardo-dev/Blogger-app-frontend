@@ -54,11 +54,11 @@ export default function ForgotPasswordPage() {
   return (
     <div>
       {showForm && (
-        <div className="h-screen mt-0 flex flex-row items-center lg:justify-between">
-          <div className="flex flex-col justify-center items-center space-y-2 w-full">
+        <div className="h-[calc(100svh-114px)] flex flex-row items-center justify-center">
+          <div className="flex flex-col justify-center items-center space-y-2 p-4">
             <div className="text-center max-w-md">
-              <h1 className="text-3xl font-semibold text-gray-800 mb-2">Restablece tu contraseña</h1>
-              <p className="text-sm text-gray-600">Escribe la dirección de tu correo electrónico y te enviaremos las instrucciones para restablecer la contraseña.</p>
+              <h1 className="text-3xl font-semibold text-gray-800 mb-2">Restablece contraseña</h1>
+              <p className="text-base text-gray-600">Escribe la dirección de tu correo y te enviaremos un enlace para restablecer la contraseña.</p>
             </div>
 
             <div className="w-full p-4 max-w-md">
@@ -106,7 +106,7 @@ export default function ForgotPasswordPage() {
                     </>
                   )}
                 </button>
-                <br /><br />
+                <br />
                 <div className="text-center">
                   <p className="text-sm text-gray-600">
                     <Link
@@ -122,13 +122,13 @@ export default function ForgotPasswordPage() {
         </div>
       )}
       {message && (
-        <div className="flex flex-col items-center justify-center h-screen">
-          <div className="bg-gray-500 rounded-full p-4 mb-4">
+        <div className="flex flex-col items-center justify-center h-[calc(100svh-114px)]">
+          <div className="bg-gray-500 rounded-full p-4">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
           </div>
-          <div className='max-w-md'>
+          <div className='max-w-md p-8 lg:p-4'>
             <p className="text-black text-xl mb-2 text-center">¡Revise su email!</p>
             <p className="text-gray-600 text-center">{message}</p>
             <button

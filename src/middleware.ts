@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
   // Rutas protegidas (añade las rutas que requieren autenticación)
   const protectedPaths = [
     '/dashboard', 
-    '/profile', 
+    '/mis-propuestas', 
     '/settings', 
     '/admin'
   ]
@@ -57,6 +57,7 @@ export const config = {
     
     // Rutas protegidas
     '/dashboard/:path*',
+    '/mis-propuestas/:path*',
     '/profile/:path*',
     '/settings/:path*',
     '/admin/:path*'

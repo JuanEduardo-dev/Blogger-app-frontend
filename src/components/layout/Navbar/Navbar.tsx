@@ -27,10 +27,6 @@ const Navbar = () => {
   const authRoutes = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
   const isAuthRoute = authRoutes.includes(pathname) || pathname.startsWith('/auth/reset-password/');
 
-  const isActive = (ruta: string, exact: boolean = false) => {
-    return exact ? pathname === ruta : pathname.startsWith(ruta);
-  };
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [fechaFormateada, setFechaFormateada] = useState<string>('');
@@ -78,8 +74,10 @@ const Navbar = () => {
   
   const navLinks = [
     { href: '/', label: 'Inicio' },
-    { href: '/temas', label: 'Temas' },
-    { href: '/propuestas', label: 'Propuestas' }
+    { href: '/temas/organizacion-politica-y-administrativa-del-peru', label: 'Organización política y administrativa' },
+    { href: '/temas/evolucion-de-los-movimientos-sociales-en-el-peru', label: 'Historia y evolución de los movimiento sociales' },
+    { href: '/propuestas', label: 'Propuestas' },
+    { href: '/mis-propuestas', label: 'Mis propuestas' }
   ];
 
   // Logo Component
@@ -125,8 +123,7 @@ const Navbar = () => {
             <Link href="/" legacyBehavior passHref>
               <NavigationMenuLink 
                 className={`
-                  ${navigationMenuTriggerStyle()} 
-                  ${isActive('/', true) ? 'bg-gray-100' : ''}
+                  ${navigationMenuTriggerStyle()}
                 `}
               >
                 Inicio
@@ -134,10 +131,8 @@ const Navbar = () => {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href={'/temas'}>
-              <NavigationMenuTrigger 
-                className={isActive('/temas', false) ? 'bg-gray-100' : ''}
-              >
+            <Link href={''}>
+              <NavigationMenuTrigger>
                 Temas
               </NavigationMenuTrigger>
             </Link>
@@ -145,49 +140,9 @@ const Navbar = () => {
               <div className="w-[325px] gap-3">
                 <ul className=" gap-3">
                     <ListItem href="/temas/organizacion-politica-y-administrativa-del-peru">
-                      <span className='flex items-center gap-2 text-black'>
+                      <span className='flex items-center gap-2 text-gray-700'>
                         <PiTreeStructure className='text-lg' />
                         Organización política y administrativa
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Organización Nacional
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Organización Regional
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Organización Local
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Análisis comparativo
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Aportes de la Ingeniería de Sistemas
                       </span>
                     </ListItem>
                 </ul>
@@ -198,56 +153,15 @@ const Navbar = () => {
                         Historia y evolución de los movimiento sociales
                       </span>
                     </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Primeros Movimientos
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Consolidación
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Transformación y desarrollo
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Nuevos Movimientos
-                      </span>
-                    </ListItem>
-                    <ListItem 
-                      className='pl-8'
-                      href="/temas/organizacion-politica-y-administrativa-del-peru"
-                    >
-                      <span className='flex items-center gap-2 text-gray-500 '>
-                        Movimientos Contemporáneos
-                      </span>
-                    </ListItem>
                 </ul>
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/propuestas" legacyBehavior passHref>
               <NavigationMenuLink 
                 className={`
-                  ${navigationMenuTriggerStyle()} 
-                  ${isActive('/propuestas', false) ? 'bg-gray-100' : ''}
+                  ${navigationMenuTriggerStyle()}
                 `}
               >
                 Propuestas
@@ -255,14 +169,13 @@ const Navbar = () => {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/mis-propuestas" legacyBehavior passHref>
               <NavigationMenuLink 
                 className={`
-                  ${navigationMenuTriggerStyle()} 
-                  ${isActive('/tus-propuestas', false) ? 'bg-gray-100' : ''}
+                  ${navigationMenuTriggerStyle()}
                 `}
               >
-                Tus propuestas
+                Mis propuestas
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -324,30 +237,32 @@ const Navbar = () => {
   // Mobile Menu Component
   const MobileMenu = () => (
     <div
-      className={`relative bg-black transition-transform transform duration-300 ease-in-out z-40 
-        ${isFixed ? 'h-[calc(100svh-48px)] ' : 'h-[calc(100svh-90px)] '}
+      className={`relative bg-pallette-60 transition-transform transform duration-300 ease-in-out z-40 
+        ${isFixed ? 'h-[calc(100svh-48px)] ' : 'h-[calc(100svh-88px)] '}
         ${isMenuOpen ? 'translate-x-0' : 'hidden'}
         lg:hidden`}
     >
-      <div className="flex flex-col items-center pt-10 space-y-4 w-full">
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="w-full text-center text-gray-700 text-lg py-3 hover:bg-gray-100"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {link.label}
-          </Link>
-        ))}
+      <div className="flex items-center w-full h-[calc(100svh-186px)] justify-center pl-8 pr-8">
+        <div className='relative flex flex-col items-center'>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="w-full text-center text-gray-700 text-lg py-3 hover:bg-gray-100"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
         <div className="w-full px-6 absolute bottom-0 left-0  pb-6">
           <Link href="/auth/login">
-            <button className="w-full bg-gray-100 text-gray-700 text-lg py-2 rounded-md mb-3">
+            <button className="w-full bg-gray-100 text-gray-700 text-lg py-2 rounded-md mb-3 border-[1px]">
               Iniciar sesión
             </button>
           </Link>
           <Link href="/auth/register">
-            <button className="w-full bg-blue-600 text-white text-lg py-2 rounded-md">
+            <button className="w-full bg-pallette-10 text-white text-lg py-2 rounded-md">
               Registrarse
             </button>
           </Link>
@@ -358,7 +273,7 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`${isFixed ? 'fixed' : 'relative'} top-0 left-0 right-0 w-full z-50 flex-col transition-all duration-100
+      className={`${isFixed && !isAuthRoute ? 'fixed' : 'relative'} top-0 left-0 right-0 w-full z-50 flex-col transition-all duration-100
         ${
           isFixed 
             ? 'h-14' 
@@ -378,7 +293,9 @@ const Navbar = () => {
 
         <p>{fechaFormateada}</p>
       </div>
-      <hr />
+      <hr className={`
+        ${isFixed ? 'hidden' : 'block'}
+        `}/>
 
       <div
         className={`
