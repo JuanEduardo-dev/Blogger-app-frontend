@@ -174,17 +174,19 @@ export default function Home() {
                     <div>Por: {pub.user.name} {pub.user.lastName}</div>
                   </div>
                   {/* Likes y Dislikes */}
-                  <div className="flex items-center space-x-6 justify-start">
+                  <div className="flex items-center justify-start">
                     {/* Botón de "Me gusta" */}
-                    <div className="flex items-center text-gray-700  space-x-1">
-                      <BiLike />
-                      <span>{pub.likes_count}</span>
-                    </div>
-                    {/* Botón de "No me gusta" */}
-                    <div className="flex items-center text-gray-700 space-x-1">
-                      <BiDislike />
-                      <span>{pub.dislikes_count}</span>
-                    </div>
+                    <Link className='flex space-x-6' href={`/propuesta?post=${pub.id}`}>
+                      <div className="flex items-center text-gray-700  space-x-1 opacity-50">
+                        <BiLike />
+                        <span>{pub.likes_count}</span>
+                      </div>
+                      {/* Botón de "No me gusta" */}
+                      <div className="flex items-center text-gray-700 space-x-1 opacity-50">
+                        <BiDislike />
+                        <span>{pub.dislikes_count}</span>
+                      </div>
+                    </Link>
                   </div>
                   {/* Etiquetas */}
                   {pub.tags && pub.tags.length > 0 && (

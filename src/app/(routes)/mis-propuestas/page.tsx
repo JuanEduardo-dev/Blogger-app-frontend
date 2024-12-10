@@ -194,17 +194,19 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
                     <div>Fecha: {new Date(pub.date).toLocaleString()}</div>
                     {/* Likes y Dislikes */}
-                    <div className="flex items-center space-x-6 justify-end">
-                      {/* Botón de "Me gusta" */}
-                      <div className="flex items-center text-gray-700  space-x-1">
-                        <BiLike />
-                        <span>{pub.likes_count}</span>
-                      </div>
-                      {/* Botón de "No me gusta" */}
-                      <div className="flex items-center text-gray-700 space-x-1">
-                        <BiDislike />
-                        <span>{pub.dislikes_count}</span>
-                      </div>
+                    <div className="flex items-center justify-end">
+                      <Link className='flex space-x-6' href={`/propuesta?post=${pub?.id}`}>
+                        {/* Botón de "Me gusta" */}
+                        <div className="flex items-center text-gray-700 space-x-1 opacity-50">
+                          <BiLike />
+                          <span>{pub.likes_count}</span>
+                        </div>
+                        {/* Botón de "No me gusta" */}
+                        <div className="flex items-center text-gray-700 space-x-1 opacity-50 ">
+                          <BiDislike />
+                          <span>{pub.dislikes_count}</span>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   {/* Etiquetas */}
@@ -292,15 +294,17 @@ export default function Home() {
                       }}
                     />
                     {/* Likes y Dislikes */}
-                    <div className="flex items-center space-x-6">
-                      <div className="flex items-center text-gray-700 space-x-1">
-                        <BiLike />
-                        <span>{pub.likes_count}</span>
-                      </div>
-                      <div className="flex items-center text-gray-700 space-x-1">
-                        <BiDislike />
-                        <span>{pub.dislikes_count}</span>
-                      </div>
+                    <div className="flex items-center">
+                      <Link className='flex space-x-6' href={`/propuesta?post=${pub?.id}`}>
+                        <div className="flex items-center text-gray-700 space-x-1 opacity-50">
+                          <BiLike />
+                          <span>{pub.likes_count}</span>
+                        </div>
+                        <div className="flex items-center text-gray-700 space-x-1 opacity-50">
+                          <BiDislike />
+                          <span>{pub.dislikes_count}</span>
+                        </div>
+                      </Link>
                     </div>
                     {/* Mostrar tags asociados */}
                     <div className="mt-2">

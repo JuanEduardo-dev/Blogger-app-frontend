@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import SessionProviderClientComponent from "@/components/layout/SessionProviderClientComponent/SessionProviderClientComponent";
 import { Toaster } from "@/components/ui/Shadcn/toaster";
 import { UserProvider } from './context/UserContext';
+import { LandbotComponent } from "@/components/layout/LandbotComponent";
 export const metadata: Metadata = {
   title: "PropuestasPerú",
   description: "Proyecto del curso de realidad nacional",
@@ -31,7 +32,9 @@ export default async function RootLayout({
           <Provider>
             <UserProvider>
               <Navbar />
-                <main>{children}</main>  
+                <main>{children}
+                <LandbotComponent />
+                  </main>  
               <Footer />
             </UserProvider>
           </Provider>
