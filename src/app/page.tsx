@@ -1,104 +1,278 @@
 'use client'
 
-import { useDataPub } from '@/hooks/publications/dataPub';
-import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 
 import { BiDislike, BiLike} from "react-icons/bi";
-import { SetStateAction } from 'react';
-import { Publication } from '@/types/publications';
+import { PiDotOutlineFill, PiTreeStructure } from "react-icons/pi";
+import Link from 'next/link';
+import { useDataPub } from '@/hooks/publications/dataPub';
+import { forTopicsUserPageConfig } from '@/utils/publications/forTopicUserPageConfig';
+import { IoCalendarOutline } from 'react-icons/io5';
 
 export default function Home() {
-
-  const { publications: pub, isLoading: pubDataLoad, mutate: userPubDataMutate,
-    sortedPubByDate, sortedPubByPageDate, tagPubCounts, sortedPubMostLiked, lastedMostLikePubFour
+  const { publications: pub, isLoading: pubDataLoad,
+    sortedPubByDate, sortedPubByPageDate, tagPubCounts,
   } = useDataPub();
-  const [step, setStep] = useState(1);
-  const totalSteps = 2;
 
-  // Estado para la página actual
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Número de publicaciones por página
 
-  // Calcular el índice de inicio y fin para las publicaciones en la página actual
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sortedPubMostLiked.slice(indexOfFirstItem, indexOfLastItem);
+  //RENDERS
+  const renderMain = () => (
+    <>
+      {/* Services Section */}
+      <div className="w-full lg:w-2/3">
+        <div className="p-4 lg:mt-6">
+          <div className="bg-white">
+            <div className="space-y-8">
+              <div className='text-2xl mb-8 font-semibold'>
+                Descrubre nuestros temas
+              </div>
+              <Link className="relative group" href={`/temas/organizacion-politica-y-administrativa-del-peru`}> 
+                <div className="relative border border-gray-300 p-4 mb-8 shadow-sm space-y-4 overflow-hidden"> 
+                  {/* Imagen de fondo */} 
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110" 
+                    style={{ 
+                      backgroundImage: "url('/images/tema-1.jpg')",
+                      clipPath: "inset(0)",
+                      zIndex: 1
+                    }} 
+                  >
+                  <style jsx>{`
+                    div::after {
+                      content: '';
+                      position: absolute;
+                      inset: 0;
+                      background-color: rgba(0, 89, 120, 0.5); 
+                      z-index: 2;
+                    }
+                  `}</style>
+                  </div> 
+                  {/* Contenido de la tarjeta */} 
+                  <div className="relative z-10 p-12"> 
+                    <div className='flex flex-wrap justify-start md:space-x-4'> 
+                      <div className='flex items-center text-base text-white mb-2'> 
+                        <PiDotOutlineFill className='text-white'/> 
+                        <IoCalendarOutline className='mr-1 '/> 3 Diciembre, 2024 
+                      </div> 
+                    </div> 
+                    <h3 className="text-xl font-semibold text-white">La organización política y administrativa del Perú</h3> 
+                  </div> 
+                </div> 
+              </Link>
 
-  // Calcular el número total de páginas
-  const totalPages = Math.ceil(sortedPubMostLiked.length / itemsPerPage);
+              <Link className="relative group" href={`/temas/evolucion-de-los-movimientos-sociales-en-el-peru`}> 
+                <div className="relative border border-gray-300 p-4 mb-8 shadow-sm space-y-4 overflow-hidden"> 
+                  {/* Imagen de fondo */} 
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110" 
+                    style={{ 
+                      backgroundImage: "url('/images/huelga.jpg')",
+                      clipPath: "inset(0)",
+                      zIndex: 1
+                    }} 
+                  >
+                  <style jsx>{`
+                    div::after {
+                      content: '';
+                      position: absolute;
+                      inset: 0;
+                      background-color: rgba(0, 89, 120, 0.5);
+                      z-index: 2;
+                    }
+                  `}</style>
+                  </div> 
+                  {/* Contenido de la tarjeta */} 
+                  <div className="relative z-10 p-12"> 
+                    <div className='flex flex-wrap justify-start md:space-x-4'> 
+                      <div className='flex items-center text-base text-white mb-2'> 
+                        <PiDotOutlineFill className='text-white'/> 
+                        <IoCalendarOutline className='mr-1 '/> 3 Diciembre, 2024 
+                      </div> 
+                    </div> 
+                    <h3 className="text-xl font-semibold text-white">Historia y evolución de los movimientos sociales</h3> 
+                  </div> 
+                </div> 
+              </Link>
 
-  // Función para cambiar a una página específica
-  const goToPage = (pageNumber: SetStateAction<number>) => {
-    setCurrentPage(pageNumber);
-  };
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Desktop Only */}
+      <div className="lg:w-1/3 relative reveal fade-right lg:mt-6 p-4 space-y-4">
+        <div className='p-4 border border-gray-300'>
+          <div className="flex flex-col items-start">
+            <p className="text-xl font-semibold mb-2">Propuestas Totales</p>
+            <div className="flex space-x-2 w-full">
+              <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+              <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+            </div>
+          </div>
 
-  const goToStep = (newStep: number) => {
-    if (newStep >= 1 && newStep <= totalSteps) {
-      setStep(newStep);
-      window.scrollTo(0, 0);
-    } else {
-      if (newStep == 7) {
-        setStep(1);
-        window.scrollTo(0, 0);
-      }
-    }
-  };
+          {pub.length === 0 && !pubDataLoad ? (
+            <div className="text-left text-gray-500 mt-4">
+              No tienes propuestas
+            </div>
+          ) : (
+          // Filtramos las primeras dos páginas (pageId)
+          Object.entries(sortedPubByPageDate)
+            .map(([pageId, pagePublications]) => {
+              const pageConfig = forTopicsUserPageConfig[pageId as unknown as keyof typeof forTopicsUserPageConfig] || {
+                icon: <PiTreeStructure className='text-lg' />,
+                title: `Página ${pageId}`,
+              };
+              return (
+                <div key={pageId} className='flex items-center justify-between w-full gap-4 mt-4'>
+                  <span className='flex items-center text-gray-700'>
+                    {pageConfig.icon}
+                  </span>
+                  <span className='text-left'>
+                    {pageConfig.title}
+                  </span>
+                  <span className="bg-gray-200 text-gray-700 px-2 rounded-full text-xs ml-2">
+                    {pagePublications.length}
+                  </span>
+                </div>
+              );
+            })
+          )}
+        </div>
+        
+        <div className='p-4 border border-gray-300'>
+          <div className="flex flex-col items-start">
+            <p className="text-xl font-semibold mb-2">Propuestas recientes</p>
+            <div className="flex space-x-2 w-full">
+              <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+              <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+            </div>
+          </div>
+
+            {pub.length === 0 && !pubDataLoad ? (
+              <div className="text-left text-gray-500 mt-4">
+                No tienes propuestas
+              </div>
+            ) : (     
+              <div className={`flex flex-col space-y-4 ${!pubDataLoad ? 'mt-4' : ''}`}>
+              {/* Aquí obtenemos y mostramos solo las últimas 3 publicaciones */}
+              {sortedPubByDate.slice(0, 3).map((pub) => (
+                <div key={pub.id} className="flex flex-col space-y-2">
+                  <hr />
+                  {/* Enlace a la publicación */}
+                  <Link className="hover:underline hover:text-blue-700" href={`/propuesta?post=${pub.id}`}>
+                    <h3 className="text-lg font-semibold">{pub.title}</h3>
+                  </Link>
+                  {/* Contenido resumido */}
+                  <div
+                      className="text-sm text-gray-600 mb-2 leading-relaxed"
+                      dangerouslySetInnerHTML={{
+                      __html: pub.content.length > 200 ? pub.content.substring(0, 200) + '...' : pub.content,
+                    }}
+                  />
+                  {/* Fecha, autor, likes, dislikes */}
+                  <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
+                    <div>Fecha: {new Date(pub.date).toLocaleString()}</div>
+                    <div>Por: {pub.user.name} {pub.user.lastName}</div>
+                  </div>
+                  {/* Likes y Dislikes */}
+                  <div className="flex items-center space-x-6 justify-start">
+                    {/* Botón de "Me gusta" */}
+                    <div className="flex items-center text-gray-700  space-x-1">
+                      <BiLike />
+                      <span>{pub.likes_count}</span>
+                    </div>
+                    {/* Botón de "No me gusta" */}
+                    <div className="flex items-center text-gray-700 space-x-1">
+                      <BiDislike />
+                      <span>{pub.dislikes_count}</span>
+                    </div>
+                  </div>
+                  {/* Etiquetas */}
+                  {pub.tags && pub.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {pub.tags.map((tag) => (
+                        <span 
+                          key={tag.id} 
+                          className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs"
+                        >
+                          {tag.title}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              </div>
+            )}
+        </div>
+
+        <div className='p-4 border border-gray-300'>
+          <div className="flex flex-col items-start">
+            <p className="text-xl font-semibold mb-2">Tags Más Usados</p>
+            <div className="flex space-x-2 w-full">
+              <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+              <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+            </div>
+            <div>
+              {pub.length === 0 && !pubDataLoad ? (
+              <div className="text-left text-gray-500 mt-4">
+                  No tienes propuestas
+                </div>
+              ) : (
+                <div className={`flex flex-col ${!pubDataLoad ? 'mt-4' : ''}`}>
+                {/* Mostrar los tags y el número de publicaciones */}
+                {tagPubCounts && Object.keys(tagPubCounts).length > 0 ? (
+                  Object.keys(tagPubCounts).map((tag) => (
+                    <div key={tag} className="flex items-center text-sm text-gray-700 mb-2">
+                      <span className="font-semibold">{tag}</span>
+                      <span className="ml-2 text-gray-500">({tagPubCounts[tag]})</span>
+                    </div>
+                  ))
+                ) : null}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <>
-    <div className="max-w-7xl mx-auto">
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {lastedMostLikePubFour.map((pub) => (
-          <div
-            key={pub.id}
-            className="relative bg-white rounded-lg shadow-md overflow-hidden group"
-          >
-            {/* Imagen de fondo */}
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-              style={{ backgroundImage: `url('/images/movimientos/fondo.jpg')` }}
-            ></div>
-            <div className="relative p-4 z-10">
-              <h3 className="text-lg font-bold mb-2">{pub.title}</h3>
-              <div
-                className="text-gray-600 mb-4"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    pub.content.length > 100
-                      ? pub.content.substring(0, 100) + '...'
-                      : pub.content,
-                }}
-              />
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2 text-gray-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                  </svg>
-                  <span>{pub.likes_count}</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {pub.tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs"
-                    >
-                      {tag.title}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+      <section className="relative h-96">
+        {/* Background Image */}
+        <Image 
+          src="/images/back-propuestas.jpg" 
+          alt="Background Image" 
+          fill
+          quality={100}
+          priority
+          className="absolute inset-0 object-cover z-0 overflow-clip"
+        />
+        
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-pallette-10-contrast bg-opacity-50 z-10"></div>
+        
+        {/* Content */}
+        <div className="relative z-20 h-full w-full text-center flex">
+          <div className="max-w-7xl mx-auto px-4 h-full flex flex-col justify-center text-white">
+            <Image
+              src="/images/logo-footer.png"
+              alt="Buccasan Logo"
+              style={{
+                width: 'auto', height: '64px',
+              }}
+              width={0}
+              height={0}
+              sizes="100vw"
+            />
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
-    </div>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-center max-w-7xl mx-auto mt-2">
+        {renderMain()}
+      </div>
     </>
   );
 }

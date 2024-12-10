@@ -27,10 +27,9 @@ import Link from 'next/link';
 import { IoArrowBackSharp, IoArrowForward } from "react-icons/io5"
 import { useState } from 'react';
 
-export default function Home(params: { slug: string }) {
-  const slug = params.slug;
+export default function Home() {
+  const slug = "evolucion-de-los-movimientos-sociales-en-el-peru";
   const websiteId = 12265; // Tu ID de sitio web de Hyvor Talk
-  const tituloTema = "Historia y evolución de los movimientos sociales";
 
   const renderStep1 = () => (
     <div>
@@ -172,7 +171,7 @@ export default function Home(params: { slug: string }) {
         <ul className='leading-relaxed space-y-4' style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
           <li><strong>1850:</strong> Primeras asociaciones gremiales y mutualistas</li>
           <li><strong>1880:</strong> Circulación de ideas socialistas entre trabajadores</li>
-          <li><strong>1886:</strong> Fundación de la Confederación de Artesanos "Unión Universal" (CAUU)</li>
+          <li><strong>1886:</strong> Fundación de la Confederación de Artesanos Unión Universal (CAUU)</li>
           <li><strong>1901:</strong> Primer Congreso Nacional Obrero</li>
           <li><strong>1911:</strong> Predominio de la influencia anarquista</li>
           <li><strong>1912-1913:</strong> Intensificación de huelgas por jornada laboral y salarios</li>
@@ -189,7 +188,7 @@ export default function Home(params: { slug: string }) {
             style={{width: '100%', height: 'auto'}}
           />
         </div>
-        <p className='italic text-center'>"Los movimientos sociales representan la capacidad de transformación de las sociedades, manifestando la lucha continua por derechos, reconocimiento e igualdad."</p>
+        <p className='italic text-center'>Los movimientos sociales representan la capacidad de transformación de las sociedades, manifestando la lucha continua por derechos, reconocimiento e igualdad.</p>
       </div>
     </div>
   );
@@ -395,7 +394,7 @@ export default function Home(params: { slug: string }) {
         <p className='text-xl mt-4'><strong>Acciones y Estrategias</strong></p>
         <ul className='leading-relaxed space-y-4' style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
           <li>Autogestión para obtener servicios básicos</li>
-          <li>Organización de "pueblos jóvenes"</li>
+          <li>Organización de pueblos jóvenes</li>
           <li>Lucha por agua potable, electricidad y vivienda digna</li>
           <li>Empoderamiento comunitario y presión al Estado</li>
         </ul>
@@ -467,7 +466,7 @@ export default function Home(params: { slug: string }) {
           <strong>Movimiento de Mujeres Populares</strong>
         </p>
         <p>
-          El movimiento de mujeres populares surgió a fines de los setenta con las "ollas comunes" en respuesta a la crisis económica, y se institucionalizó en los ochenta con la creación de Federaciones de Comedores Populares y los Comités del Vaso de Leche bajo la administración de Barrantes.
+          El movimiento de mujeres populares surgió a fines de los setenta con las ollas comunes en respuesta a la crisis económica, y se institucionalizó en los ochenta con la creación de Federaciones de Comedores Populares y los Comités del Vaso de Leche bajo la administración de Barrantes.
           El movimiento tiene tres componentes principales: comités del vaso de leche, comedores populares y clubes de madres, apoyados por ONGs y parroquias.
         </p>
         
@@ -1064,7 +1063,6 @@ export default function Home(params: { slug: string }) {
           <HyvorComments 
             websiteId={websiteId}
             pageId={slug}
-            title={tituloTema}
           />
         </div>
       </div>

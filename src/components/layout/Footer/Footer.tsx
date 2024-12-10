@@ -34,12 +34,12 @@ const Footer = () => {
             />
             </Link>
             <p className="text-pallette-60">
-              Brindando servicios odontológicos de calidad y cuidado integral para tu salud bucal.
+              Una plataforma en la que puedes compartir tus propuestas e ideas con el Perú.
             </p>
             {/* Social Icons */}
             <div className="flex space-x-4">
               <a 
-                href="https://www.facebook.com/Buccasan.pe" 
+                href="#" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-pallette-30 p-2 rounded-full hover:bg-pallette-60 transition-colors"
@@ -49,7 +49,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://www.instagram.com/buccasan.pe/"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-pallette-30 p-2 rounded-full hover:bg-pallette-60 transition-colors"
@@ -59,7 +59,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://www.tiktok.com/@buccasandental"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-pallette-30 p-2 rounded-full hover:bg-pallette-60 transition-colors"
@@ -69,7 +69,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://www.youtube.com/@Buccasan"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-pallette-30 p-2 rounded-full hover:bg-pallette-60 transition-colors"
@@ -91,23 +91,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/nosotros" className="text-pallette-60 hover:text-pallette-30 transition-colors">
-                  Nosotros
+                <Link href="/propuestas" className="text-pallette-60 hover:text-pallette-30 transition-colors">
+                  Propuestas
                 </Link>
               </li>
               <li>
-                <Link href="/sede" className="text-pallette-60 hover:text-pallette-30 transition-colors">
-                  Sede
+                <Link href="/mis-propuestas" className="text-pallette-60 hover:text-pallette-30 transition-colors">
+                  Mis propuestas
                 </Link>
               </li>
               <li>
-                <Link href="/servicios" className="text-pallette-60 hover:text-pallette-30 transition-colors">
-                  Servicios
-                </Link>
-              </li>
-              <li>
-                <Link href="/contacto" className="text-pallette-60 hover:text-pallette-30 transition-colors">
-                  Contacto
+                <Link href="/mi-cuenta" className="text-pallette-60 hover:text-pallette-30 transition-colors">
+                  Mi cuenta
                 </Link>
               </li>
             </ul>
@@ -115,16 +110,13 @@ const Footer = () => {
 
           {/* Horario de Atención */}
           <div className="space-y-4">
-            <h3 className="text-pallette-30 text-xl font-semibold">Horario de Atención</h3>
+            <h3 className="text-pallette-30 text-xl font-semibold">Legal</h3>
             <ul className="space-y-2">
               <li className="flex justify-between text-pallette-60">
-                <span>Lunes - Viernes:</span>
-                <span>8:00AM-8:00PM</span>
+                <span>Términos y condiciones</span>
               </li>
-              <hr />
               <li className="flex justify-between text-pallette-60">
-                <span>Sábados:</span>
-                <span>8:00AM-8:00PM</span>
+                <span>Política de privacidad</span>
               </li>
             </ul>
           </div>
@@ -139,7 +131,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3 text-pallette-60">
                 <Mail className="text-pallette-30" size={20} />
-                <span>buccasanclinica@gmail.com</span>
+                <span>propuestasperu@gmail.com</span>
               </li>
               <li className="flex items-center space-x-3 text-pallette-60">
                 <MapPin className="text-pallette-30" size={20} />

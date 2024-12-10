@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Publication } from '@/types/publications';
 import { Degree, degreeMap } from '@/types/user';
 import { DegreeIcon } from '@/utils/user/degreeIcon';
@@ -15,7 +15,6 @@ import { MdDelete, MdModeEdit } from "react-icons/md";
 import Loader from '@/components/ui/Basics/Loader/Loader';
 import PublicationReactions from '@/components/ui/propuesta/PublicationReactions/PublicationReactions';
 import { useSession } from 'next-auth/react';
-import { mutate } from 'swr';
 import { toast } from '@/hooks/use-toast';
 import EditPublicationForm from '@/components/ui/propuesta/EditPublicationForm/EditPublicationForm';
 import { useUser } from '@/app/context/UserContext';
@@ -35,22 +34,16 @@ export default function PublicationDetailPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [publication, setPublication] = useState<Publication | null>(null);
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(1);
   const { user } = useUser();
   const totalSteps = 2;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [error, setError] = useState<string | null>(null);
 
   const degree: Degree = (publication?.user.degreeId !== undefined && publication?.user.degreeId !== null)
     ? degreeMap[publication.user.degreeId] || 'Sin grado académico'
     : 'Sin grado académico';
-
-  const goToPage = (pageNumber: SetStateAction<number>) => {
-    setCurrentPage(pageNumber);
-  };
 
   const renderStep = (step: number) => {
     switch (step) {
@@ -85,7 +78,6 @@ export default function PublicationDetailPage() {
 
   const handleDeletePub = async (e: React.MouseEvent) => {
     setLoadingDelete(true);
-    setError('');
     e.preventDefault();
   
     try {
@@ -108,7 +100,6 @@ export default function PublicationDetailPage() {
         router.push('/mis-propuestas');
       }
 
-    } catch (err) {
     } finally {
       setLoadingDelete(false);
     }
@@ -116,7 +107,6 @@ export default function PublicationDetailPage() {
 
   useEffect(() => {
     if (!publicationId) {
-      setError('No se proporcionó un ID de publicación');
       setLoading(false);
       return;
     }
@@ -130,8 +120,6 @@ export default function PublicationDetailPage() {
           throw new Error(responseData.error || 'Error al obtener la publicación');
         }
         setPublication(responseData.data);
-        setError(null);
-      } catch (err) {
       } finally {
         setLoading(false);
       }
@@ -291,29 +279,6 @@ export default function PublicationDetailPage() {
             )}
           </div>
         </div>
-        <div className='p-4 border border-gray-300'>
-          <div className="flex flex-col items-start">
-            <p className="text-xl font-semibold mb-2">Propuestas creadas</p>
-            <div className="flex space-x-2 w-full">
-              <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-              <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-            </div>
-          </div>
-  
-
-        </div>
-        
-        <div className='p-4 border border-gray-300'>
-          <div className="flex flex-col items-start">
-            <p className="text-xl font-semibold mb-2">Propuestas recientes</p>
-            <div className="flex space-x-2 w-full">
-              <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-              <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-            </div>
-          </div>
-            
-        </div>
-
         <div className='p-4 border border-gray-300'>
           <div className="flex flex-col items-start">
             <p className="text-xl font-semibold mb-2">Tags</p>

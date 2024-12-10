@@ -30,7 +30,7 @@ import { cn } from '@/lib/utils';
 import { PiTreeStructure } from "react-icons/pi";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { useUser } from '@/app/context/UserContext';
-import { Degree, User } from '@/types/user';
+import { Degree } from '@/types/user';
 import { DegreeIcon } from '@/utils/user/degreeIcon';
 
 
@@ -38,7 +38,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
 
-  const { user, loading } = useUser();
+  const { user } = useUser();
   const degree: Degree = user?.degreeTitle as Degree;
   
   const authRoutes = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
@@ -361,13 +361,13 @@ const Navbar = () => {
     >
       <div  className={`max-w-7xl mx-auto m-1 justify-between items-center px-4 text-gray-500
         ${!isFixed && !isAuthRoute ? 'flex' : 'hidden'}`
-      }>
-        <div className='flex'>
-          <div className='flex bg-orange-600 items-center'>
-            <p className='text-white pl-2 pr-2'>Tendencias</p>
+      }><Link href={'/propuestas'}>
+          <div className='flex'>
+            <div className='flex bg-orange-600 items-center'>
+              <p className='text-white pl-2 pr-2'>Novedades</p>
+            </div>
           </div>
-        </div>
-
+        </Link>
         <p>{fechaFormateada}</p>
       </div>
       <hr className={`

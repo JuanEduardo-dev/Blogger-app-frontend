@@ -32,8 +32,6 @@ const PublicationReactions: React.FC<ReactionProps> = ({ publicationId }) => {
         } else {
           setError(reactionData.error || publicationData.error || 'Error al cargar datos iniciales');
         }
-      } catch (err) {
-        setError('Error de red al cargar datos iniciales');
       } finally {
         setLoading(false);
       }
@@ -91,8 +89,6 @@ const PublicationReactions: React.FC<ReactionProps> = ({ publicationId }) => {
       } else {
         setError(result.error || 'Error al procesar la reacción');
       }
-    } catch (err) {
-      setError('Error de red al procesar la reacción');
     } finally {
       setIsReacting(false);
     }
@@ -110,22 +106,31 @@ const PublicationReactions: React.FC<ReactionProps> = ({ publicationId }) => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex items-center space-x-6">
-      <div
-        className={`flex items-center text-gray-700 space-x-1 ${isReacting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-        onClick={() => !isReacting && handleReaction('like')}
-      >
-        {userReaction === 'like' ? <BiSolidLike /> : <BiLike />}
-        <span>{likesCount}</span>
+    <>
+      <div className="flex flex-row items-center justify-center text-lg w-full my-2">
+        <div >
+          <div>
+            <div className='font-semibold'>¿Qué te pareció esta propuesta?</div>
+          </div>
+          <div className="flex items-center justify-center text-xl space-x-6 w-full">
+            <div
+              className={`flex items-center text-gray-700 space-x-1 ${isReacting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+              onClick={() => !isReacting && handleReaction('like')}
+            >
+              {userReaction === 'like' ? <BiSolidLike /> : <BiLike />}
+              <span>{likesCount}</span>
+            </div>
+            <div
+              className={`flex items-center text-gray-700 space-x-1 ${isReacting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+              onClick={() => !isReacting && handleReaction('dislike')}
+            >
+              {userReaction === 'dislike' ? <BiSolidDislike /> : <BiDislike />}
+              <span>{dislikesCount}</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        className={`flex items-center text-gray-700 space-x-1 ${isReacting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-        onClick={() => !isReacting && handleReaction('dislike')}
-      >
-        {userReaction === 'dislike' ? <BiSolidDislike /> : <BiDislike />}
-        <span>{dislikesCount}</span>
-      </div>
-    </div>
+    </>
   );
 };
 

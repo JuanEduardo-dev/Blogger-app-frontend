@@ -1,8 +1,7 @@
 'use client'
 import React, { useState, useMemo, useEffect } from 'react';
-import { Publication } from '@/types/publications';
 import { useForm } from 'react-hook-form';
-import { IoAddOutline } from "react-icons/io5";
+import { RxUpdate } from "react-icons/rx";
 import 'react-quill-new/dist/quill.snow.css';
 
 import ReactQuill from 'react-quill-new';
@@ -281,7 +280,7 @@ export default function CreatePublicationForm({ publication, onSuccess }: { publ
             </svg>
           ) : (
             <>
-              <IoAddOutline className='mr-2 h-5 w-5 text-white'/>
+              <RxUpdate className='mr-2 h-5 w-5 text-white'/>
               Actualizar propuesta
             </>
           )}

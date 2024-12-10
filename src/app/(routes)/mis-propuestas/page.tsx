@@ -14,8 +14,7 @@ import { LiaSlashSolid } from "react-icons/lia"
 import { BiDislike, BiLike} from "react-icons/bi";
 import { IoIosMail } from "react-icons/io";
 import { SetStateAction, useEffect, useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
-import { User, Degree } from '@/types/user';
+import { Degree } from '@/types/user';
 import { CreatePublicationForm } from "@/components/ui/mis-propuestas/CreatePublicationForm";
 import { PiDotOutlineFill, PiTreeStructure } from "react-icons/pi";
 import { DegreeIcon } from "@/utils/user/degreeIcon"
@@ -29,15 +28,13 @@ import Loader from '@/components/ui/Basics/Loader/Loader';
 
 
 export default function Home() {
-
-  const { data: session } = useSession(); 
   const { toast } = useToast()
   const { publications: userPub, isLoading: userPubDataLoad, mutate: userPubDataMutate,
     sortedPubUserByDate, sortedPubUserByPageDate, tagUserPubCounts, sortedPubUserMostLiked
   } = useUserDataPub();
   const [step, setStep] = useState(1);
   const totalSteps = 2;
-  const { user, loading } = useUser();
+  const { user } = useUser();
   const degree: Degree = user?.degreeTitle as Degree;
 
   // Estado para la página actual
@@ -372,7 +369,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative h-96">
+      <section className="relative h-60">
         {/* Background Image */}
         <Image 
           src="/images/back-mis-propuestas.png" 

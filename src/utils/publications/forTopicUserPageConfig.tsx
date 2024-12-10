@@ -1,9 +1,7 @@
 
 import React from 'react';
-import Link from 'next/link';
 import { PiTreeStructure } from 'react-icons/pi';
 import { HiOutlineUserGroup } from 'react-icons/hi';
-import { Publication } from '@/types/publications';
 
 // Configuration for page mapping
 export const forTopicsUserPageConfig = {

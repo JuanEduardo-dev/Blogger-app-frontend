@@ -16,7 +16,6 @@ import { useUser } from '@/app/context/UserContext';
 import { Button } from '@/components/ui/Shadcn/button';
 import { LiaSlashSolid } from 'react-icons/lia';
 import { signOut } from 'next-auth/react';
-import router from 'next/router';
 
 interface Degree {
   id: number;
@@ -91,14 +90,11 @@ export default function UpdateProfileForm() {
       });
 
       if (response.ok) {
-
         signOut();
-        router.push('/auth/login');
       } else {
         const errorText = await response.text();
         setError(errorText);
       }
-    } catch (err) {
     } finally {
       setLoadingDelete(false);
     }
@@ -112,9 +108,11 @@ export default function UpdateProfileForm() {
   
     // Filtrar solo los campos que tienen valor
     const updateData = Object.fromEntries(
-      Object.entries(formData).filter(([_, value]) => value !== '')
+      Object.entries(formData).filter(([_, value]) => {
+        return value !== '';
+      })
     );
-  
+
     try {
       const response = await fetch('/api/user/put', {
         method: 'PUT',

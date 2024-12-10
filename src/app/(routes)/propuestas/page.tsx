@@ -12,13 +12,9 @@ import {
 
 import { LiaSlashSolid } from "react-icons/lia"
 import { BiDislike, BiLike} from "react-icons/bi";
-import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, SetStateAction, useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { User, Degree } from '@/types/user';
+import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState } from 'react';
 import { PiDotOutlineFill, PiTreeStructure } from "react-icons/pi";
-import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import { useUser } from '@/app/context/UserContext';
 import { useDataPub } from '@/hooks/publications/dataPub';
 import { forTopicsUserPageConfig } from '@/utils/publications/forTopicUserPageConfig';
 import Loader from '@/components/ui/Basics/Loader/Loader';
@@ -26,28 +22,21 @@ import { IoCalendarOutline } from 'react-icons/io5';
 import { CiUser } from 'react-icons/ci';
 
 export default function Home() {
-
-  const { data: session } = useSession(); 
-  const { toast } = useToast();
-  const { publications: pub, isLoading: pubDataLoad, mutate: userPubDataMutate,
-    sortedPubByDate, sortedPubByPageDate, tagPubCounts, sortedPubMostLiked, lastedMostLikePubFour
+  const { publications: pub, isLoading: pubDataLoad,
+    sortedPubByDate, sortedPubByPageDate, tagPubCounts,
   } = useDataPub();
-  // 1. Real-time Search
+  
   const [searchQuery, setSearchQuery] = useState("");
   
-  // 2. Time Filter with Updated Options
   const [filterTime, setFilterTime] = useState('all'); // 'all', 'last1h', 'last25h', 'last7d'
   
-  // 3. Comprehensive Filter Dropdown
   const [filterType, setFilterType] = useState('date'); // 'likes', 'dislikes', 'tags', 'date'
   
-  // 4. Sort Direction Toggle
   const [sortDirection, setSortDirection] = useState('desc');
   
-  // 5. Tag Filtering
   const [selectedTags, setSelectedTags] = useState<{[key: string]: boolean}>({});
 
-  // Extract unique tags
+  // Sacar tags unicos
   const uniqueTags = Array.from(new Set(
     pub.flatMap(publication => publication.tags.map(tag => tag.title))
   ));
@@ -123,71 +112,45 @@ export default function Home() {
   //RENDERS
   const renderMain = () => (
     <>
-    
       {/* Services Section */}
       <div className="w-full lg:w-2/3">
-        
-        {/* Filters Container */}
-        <div className="flex items-center space-x-4 mb-6">
-          {/* 1. Search Input */}
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow p-2 border border-gray-300 rounded"
-          />
+          {/* Filters Container */}
+          <div className="flex flex-wrap items-center justify-end lg:space-x-4 lg:mb-6 p-4 lg:p-0 lg:mt-6">
+            {/* 1. Search Input */}
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-grow p-2 border border-gray-300 hover:border-gray-500 rounded-sm 
+                focus:outline-none focus:ring-blue-500 focus:border-blue-500
+                transition-colors duration-300 ease-in-out"
+            />
 
-          {/* 2. Time Filter */}
-          <select 
-            value={filterTime}
-            onChange={(e) => setFilterTime(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-          >
-            <option value="all">Todo el tiempo</option>
-            <option value="last1h">Última hora</option>
-            <option value="last24h">Últimas 24 horas</option>
-            <option value="last7d">Última semana</option>
-          </select>
+            {/* 3. Filter Type Dropdown */}
+            <select 
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="p-2 border border-gray-300 hover:border-gray-500 rounded-sm 
+                focus:outline-none focus:ring-blue-500 focus:border-blue-500
+                transition-colors duration-300 ease-in-out"
+            >
+              <option value="date">Fecha</option>
+              <option value="likes">Likes</option>
+              <option value="dislikes">Dislikes</option>
+              <option value="tags">Número de Tags</option>
+            </select>
 
-          {/* 3. Filter Type Dropdown */}
-          <select 
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-          >
-            <option value="date">Fecha</option>
-            <option value="likes">Likes</option>
-            <option value="dislikes">Dislikes</option>
-            <option value="tags">Número de Tags</option>
-          </select>
+            {/* 4. Sort Direction Toggle */}
+            <button 
+              onClick={() => setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc')}
+              className="p-2 border border-gray-300 rounded px-4"
+            >
+              {sortDirection === 'desc' ? '↓' : '↑'}
+            </button>
+          </div>
 
-          {/* 4. Sort Direction Toggle */}
-          <button 
-            onClick={() => setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc')}
-            className="p-2 border border-gray-300 rounded"
-          >
-            {sortDirection === 'desc' ? '↓' : '↑'}
-          </button>
-        </div>
-
-        {/* 5. Tags Filter */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {uniqueTags.map(tag => (
-            <label key={tag} className="inline-flex items-center">
-              <input
-                type="checkbox"
-                checked={selectedTags[tag] || false}
-                onChange={() => toggleTagSelection(tag)}
-                className="form-checkbox"
-              />
-              <span className="ml-2">{tag}</span>
-            </label>
-          ))}
-        </div>
-
-
-        <div className="p-4 lg:mt-6">
+        <div className="p-4 lg:p-0 lg:mt-6">
           <div className="bg-white">
             <div className="space-y-4">
               {pubDataLoad ? (
@@ -273,7 +236,45 @@ export default function Home() {
         </div>
       </div>
       {/* Desktop Only */}
-      <div className="lg:w-1/3 relative reveal fade-right mt-6 p-4 space-y-4">
+      <div className="lg:w-1/3 relative reveal fade-right mt-2 p-4 space-y-4">
+
+        <div className='p-4 border border-gray-300'>
+          <div className="flex flex-col items-start">
+            {/* 2. Time Filter */}
+            <select 
+              value={filterTime}
+              onChange={(e) => setFilterTime(e.target.value)}
+              className="p-2 border border-gray-300 hover:border-gray-500 rounded-sm 
+                focus:outline-none focus:ring-blue-500 focus:border-blue-500
+                transition-colors duration-300 ease-in-out w-full"
+            >
+              <option value="all">Todo el tiempo</option>
+              <option value="last1h">Última hora</option>
+              <option value="last24h">Últimas 24 horas</option>
+              <option value="last7d">Última semana</option>
+            </select>
+          </div>
+        </div>
+
+        <div className='p-4 border border-gray-300'>
+          <div className="flex flex-wrap items-start">
+            {/* 5. Tags Filter */}
+            <div className="flex flex-wrap gap-2">
+              {uniqueTags.map(tag => (
+                <label key={tag} className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedTags[tag] || false}
+                    onChange={() => toggleTagSelection(tag)}
+                    className="form-checkbox"
+                  />
+                  <span className="ml-2">{tag}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className='p-4 border border-gray-300'>
           <div className="flex flex-col items-start">
             <p className="text-xl font-semibold mb-2">Propuestas Totales</p>
@@ -413,7 +414,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative h-96">
+      <section className="relative h-60">
         {/* Background Image */}
         <Image 
           src="/images/back-propuestas.jpg" 

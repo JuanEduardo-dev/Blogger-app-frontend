@@ -1,6 +1,8 @@
 //blogger-front/src/app/(routes)/auth/login/page.tsx
 
 "use client";
+
+import Image from 'next/image';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -8,6 +10,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FcGoogle } from "react-icons/fc";
 
 import Link from 'next/link';
+import Typewriter from '@/components/ui/Typewriter/Typewriter';
 
 interface LoginFormInputs {
   email: string;
@@ -18,15 +21,32 @@ function LoginPage() {
   const pathname = usePathname();
   const bgColor = "lg:bg-custom-gradient"
 
+  const [currentImage, setCurrentImage] = useState("/images/fondo-1.png");
+  const [fadeOut, setFadeOut] = useState(false);
+
   useEffect(() => {
-    // Cambiar el fondo de la página solo si estamos en la ruta /reset-password
+    const interval = setInterval(() => {
+      setFadeOut(true);
+      setTimeout(() => {
+        setCurrentImage((prevImage) =>
+          prevImage === "/images/fondo-1.png" ? "/images/fondo-2.png" : "/images/fondo-1.png"
+        );
+        setFadeOut(false);
+      }, 1000)
+
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Cambiar el fondo de la página para /reset-password
     if (pathname === "/auth/login") {
       document.body.classList.add(bgColor);
     } else {
       document.body.classList.remove(bgColor);
     }
 
-    // Limpiar al desmontar el componente o cambiar de ruta
     return () => {
       document.body.classList.remove(bgColor);
     };
@@ -40,10 +60,10 @@ function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false); //Logica de carga
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    setIsSubmitting(true);//Logica de carga
+    setIsSubmitting(true);
 
     const res = await signIn("credentials", {
       email: data.email,
@@ -196,7 +216,18 @@ function LoginPage() {
         </div>
       </div>
       <div className="hidden lg:block lg:w-1/2 relative">
-       
+        <div className='p-36 animate-float'>
+          <Typewriter />
+          <Image
+            className={`relative object-cover h-full block shadow-lg transition-opacity duration-1000 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
+            src={currentImage}
+            alt="Background"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: 'auto', height: '100%' }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -28,10 +28,9 @@ import { FaQuoteLeft } from "react-icons/fa";
 import { IoArrowBackSharp, IoArrowForward } from "react-icons/io5"
 import { useState } from 'react';
 
-export default function Home(params: { slug: string }) {
-  const slug = params.slug;
+export default function Home() {
+  const slug = "evolucion-de-los-movimientos-sociales-en-el-peru";
   const websiteId = 12265; // Tu ID de sitio web de Hyvor Talk
-  const tituloTema = "Organización Política y Administrativa del Perú";
 
   const renderStep1 = () => (
     <div>
@@ -969,7 +968,6 @@ export default function Home(params: { slug: string }) {
             <HyvorComments 
               websiteId={websiteId}
               pageId={slug}
-              title={tituloTema}
             />
         </div>
       </div>
