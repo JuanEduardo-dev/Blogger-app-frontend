@@ -395,10 +395,10 @@ export default function Home() {
       <br />
       <div className='text-gray-600 mb-4 leading-relaxed space-y-4'>
         <p className='text-2xl'>
-          <strong>Concejo Municipal</strong>
+          <strong>Consejo Municipal</strong>
         </p>
         <p>
-          El Concejo Municipal de la Municipalidad Provincial de Huánuco es el máximo órgano de gobierno. Está compuesto por el alcalde provincial, Juan Antonio Jara Gallardo, y trece regidores. Ley Orgánica de Municipalidades N° 27972 y su Reglamento Interno de Concejo (RIC).
+          El Consejo Municipal de la Municipalidad Provincial de Huánuco es el máximo órgano de gobierno. Está compuesto por el alcalde provincial, Juan Antonio Jara Gallardo, y trece regidores. Ley Orgánica de Municipalidades N° 27972 y su Reglamento Interno de Consejo (RIC).
         </p>
         <div className="w-full">
           <Image 
@@ -858,86 +858,7 @@ export default function Home() {
         </div>
         
         {/* Desktop Only */}
-        <div className="px-4 lg:px-0 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-1 lg:mt-16 lg:ml-8 space-y-4">
-          <div className='p-4 border border-gray-300'>
-            <div className="flex flex-col items-start">
-              <p className="text-xl font-semibold mb-2">Problemas identificados</p>
-              <div className="flex space-x-2 w-full">
-                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-              </div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
-                  <AccordionContent>
-                    <p className='text-gray-600 leading-relaxed space-y-2'>
-                    A pesar de las políticas de descentralización, Lima concentra la mayor parte de los recursos económicos, políticos y administrativos. Esto genera desigualdad en la distribución de recursos y servicios públicos.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
-                  <AccordionContent>
-                    <p className='text-gray-600 leading-relaxed space-y-2'>
-                    Muchos gobiernos regionales no cuentan con personal capacitado para ejecutar proyectos de inversión pública ni para gestionar adecuadamente los recursos transferidos.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-
-          <div className='p-4 border border-gray-300'>
-            <div className="flex flex-col items-start">
-              <p className="text-xl font-semibold mb-2">Soluciones propuestas</p>
-              <div className="flex space-x-2 w-full">
-                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-              </div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
-                  <AccordionContent>
-                    <div className='text-gray-600 leading-relaxed space-y-2'>    
-                      <p className='text-black'>Implementar un Sistema de Gestión Descentralizado Basado en Datos.</p>
-                      <p>Este sistema permitiría una gestión más eficiente y transparente de los recursos y servicios públicos en el país.</p>
-                      <p>La plataforma tendrá una infraestructura digital que permita la integración de gobiernos regionales y locales a una base de datos central, pero con autonomía para gestionar recursos localmente.</p>
-                      <p>Se deberá desarrollar un modelo que evalúe indicadores como población, índice de desarrollo humano, necesidades sociales y presupuesto para asignar recursos de forma justa.</p>
-                      <p>El monitoreo será en tiempo real de recursos y servicios. Para ello se usará sensores y sistemas de seguimiento para auditar la ejecución de recursos públicos y garantizar que lleguen a donde más se necesitan.</p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
-                  <AccordionContent>
-                    <div className='text-gray-600 leading-relaxed space-y-2'>    
-                      <p className='text-black'>Desarrollar un Sistema de Formación y Gestión de Competencias para los gobiernos regionales.</p>
-                      <p>La plataforma de e-learning para capacitación tendrá cursos virtuales especializados en gestión pública, planificación y ejecución de proyectos de inversión pública.</p>
-                      <p>Con la ayuda de simuladores de gestión de proyectos, se permitirá a los funcionarios practicar la ejecución de proyectos en entornos virtuales.</p>
-                      <p>Contar con un repositorio digital que almacene guías, mejores prácticas, normativa y lecciones aprendidas sobre la gestión de proyectos públicos.</p>
-                      <p>Realizar el seguimiento de desempeño, para ello se usará un módulo que mida el progreso y efectividad de los funcionarios capacitados, generando recomendaciones personalizadas para mejorar su desempeño.</p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-
-          <div className='p-4 border border-gray-300'>
-            <div className="flex flex-col items-start">
-              <p className="text-xl font-semibold mb-2">Conclusiones</p>
-              <div className="flex space-x-2 w-full mb-2">
-                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-              </div>
-              <div className='text-gray-600 mt-2 leading-relaxed space-y-2'>
-                <p>La organización administrativa y política del Perú, enfrenta desafíos significativos en su funcionamiento, especialmente en lo que respecta a la coordinación y eficiencia de la gestión pública.</p>
-                <p>Es evidente que la falta de integración tecnológica entre estos niveles contribuye a problemas reales como la ineficaz distribución de recursos y la lenta respuesta a emergencias.</p>
-                <p>Además, la corrupción sigue siendo un obstáculo importante debido a la falta de transparencia en la administración de los gobiernos locales y regionales.</p>
-              </div>
-            </div>
-          </div>
-
+        <div className="px-4 lg:px-0 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-1 lg:mt-16 lg:ml-8 space-y-4 sm:mr-4 xl:mr-0">
           <div className='p-8 border border-gray-300 bg-blue-600'>
             <div className="flex flex-col items-start text-white">
               <h1 className="text-2xl font-bold mb-2">¿Tienes una idea?</h1>
@@ -955,6 +876,191 @@ export default function Home() {
                   </div>
                 </button>
               </Link>
+            </div>
+          </div>
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Problemas identificados</p>
+              <div className="flex space-x-2 w-full">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Centralización excesiva del poder en Lima
+                      </p>
+                      <p>
+                      •	Burocracia y procesos administrativos lentos
+                      </p>
+                      <p>
+                      •	Corrupción en las instituciones públicas
+                      </p>
+                      <p>
+                      •	Falta de coordinación entre ministerios y entidades estatales
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Limitada capacidad de gestión en gobiernos regionales
+                      </p>
+                      <p>
+                      •	Limitada capacidad de gestión en gobiernos regionales
+                      </p>
+                      <p>
+                      •	Superposición de funciones con el gobierno nacional
+                      </p>
+                      <p>
+                      •	Falta de personal técnico calificado
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Nivel local</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Presupuestos limitados
+                      </p>
+                      <p>
+                      •	Débil capacidad de recaudación
+                      </p>
+                      <p>
+                      •	Débil capacidad de recaudación
+                      </p>
+                      <p>
+                      •	Desconexión con las necesidades ciudadanas
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Soluciones propuestas</p>
+              <div className="flex space-x-2 w-full">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Implementar una verdadera descentralización administrativa
+                      </p>
+                      <p>
+                      •	Simplificar procesos burocráticos
+                      </p>
+                      <p>
+                      •	Fortalecer los organismos de control y transparencia
+                      </p>
+                      <p>
+                      •	Fortalecer los organismos de control y transparencia
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Programas de capacitación para funcionarios regionales.
+                      </p>
+                      <p>
+                      •	Implementar criterios más equitativos para la distribución de recursos.
+                      </p>
+                      <p>
+                      •	Implementar criterios más equitativos para la distribución de recursos.
+                      </p>
+                      <p>
+                      •	Crear incentivos para atraer profesionales calificados.
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Nivel local</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Fortalecer sistemas de recaudación municipal.
+                      </p>
+                      <p>
+                      •	Mejorar la gestión de servicios públicos.
+                      </p>
+                      <p>
+                      •	Mejorar la gestión de servicios públicos.
+                      </p>
+                      <p>
+                      •	Optimizar el uso de recursos disponibles.
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Propuestas con la Ingeniería de Sistemas</p>
+              <div className="flex space-x-2 w-full mb-2">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className='text-gray-600 mt-2 leading-relaxed space-y-2'>
+                <p>Se propone desarrollar una Plataforma Digital Integrada de Gestión Gubernamental que incluya:</p>
+                <div className='ml-2 text-base space-y-2'>
+                  <p>•	Sistema de gestión documental digital.</p>
+                  <p>•	Módulo de seguimiento de proyectos.</p>
+                  <p>•	Módulo de seguimiento de proyectos.</p>
+                  <p>•	Sistema de atención ciudadana.</p>
+                  <p>•	Módulo de indicadores de gestión.</p>
+                </div>
+                <p>Beneficios de la plataforma:</p>
+                <div className='ml-2 text-base space-y-2'>
+                  <p>•	Reducción de tiempos en trámites.</p>
+                  <p>•	Mayor transparencia.</p>
+                  <p>•	Mejor coordinación entre niveles de gobierno.</p>
+                  <p>•	Acceso ciudadano a información y servicios.</p>
+                  <p>•	Toma de decisiones basada en datos.</p>
+                </div>
+                <p>Implementación gradual:</p>
+                <p>Fase 1: Nivel nacional</p>
+                <p>Fase 2: Integración con gobiernos regionales</p>
+                <p>Fase 3: Extensión a gobiernos locales</p>
+                <p>Fase 4: Apertura de datos y servicios ciudadanos</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Conclusiones</p>
+              <div className="flex space-x-2 w-full mb-2">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className='text-gray-600 mt-2 leading-relaxed space-y-2'>
+                <p>La organización administrativa y política del Perú, enfrenta desafíos significativos en su funcionamiento, especialmente en lo que respecta a la coordinación y eficiencia de la gestión pública.</p>
+                <p>Es evidente que la falta de integración tecnológica entre estos niveles contribuye a problemas reales como la ineficaz distribución de recursos y la lenta respuesta a emergencias.</p>
+                <p>Además, la corrupción sigue siendo un obstáculo importante debido a la falta de transparencia en la administración de los gobiernos locales y regionales.</p>
+              </div>
             </div>
           </div>
         </div>

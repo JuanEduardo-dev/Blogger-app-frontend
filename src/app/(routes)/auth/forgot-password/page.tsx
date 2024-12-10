@@ -57,7 +57,7 @@ export default function ForgotPasswordPage() {
         <div className="h-[calc(100svh-114px)] flex flex-row items-center justify-center">
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
             <div className="text-center max-w-md">
-              <h1 className="text-3xl font-semibold text-gray-800 mb-2">Restablece contraseña</h1>
+              <h1 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-2">Restablece contraseña</h1>
               <p className="text-base text-gray-600">Escribe la dirección de tu correo y te enviaremos un enlace para restablecer la contraseña.</p>
             </div>
 

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useDataPub } from '@/hooks/publications/dataPub';
 import { forTopicsUserPageConfig } from '@/utils/publications/forTopicUserPageConfig';
 import { IoCalendarOutline } from 'react-icons/io5';
+import { MdOutlineTopic } from 'react-icons/md';
 
 export default function Home() {
   const { publications: pub, isLoading: pubDataLoad,
@@ -157,6 +158,21 @@ export default function Home() {
               {sortedPubByDate.slice(0, 3).map((pub) => (
                 <div key={pub.id} className="flex flex-col space-y-2">
                   <hr />
+                  <div className='flex items-center text-sm text-gray-500 mb-2'>
+                    <PiDotOutlineFill  className='text-pallette-10'/>
+                    <MdOutlineTopic className='mr-1 '/>
+                    {
+                      pub?.page.id === 1 ? (
+                        <Link href="/temas/organizacion-politica-y-administrativa-del-peru">
+                          Organización Política y Administrativa
+                        </Link>
+                      ) : pub?.page.id === 2 ? (
+                        <Link href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                          Evolución de los Movimientos Sociales
+                        </Link>
+                      ) : null
+                    }
+                  </div>    
                   {/* Enlace a la publicación */}
                   <Link className="hover:underline hover:text-blue-700" href={`/propuesta?post=${pub.id}`}>
                     <h3 className="text-lg font-semibold">{pub.title}</h3>

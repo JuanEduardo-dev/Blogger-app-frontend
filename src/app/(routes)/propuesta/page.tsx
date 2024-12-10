@@ -11,7 +11,7 @@ import { PiDotOutlineFill } from 'react-icons/pi';
 import { TfiComment } from 'react-icons/tfi';
 import { IoCalendarOutline } from 'react-icons/io5';
 import { BiDislike, BiLike } from 'react-icons/bi';
-import { MdDelete, MdModeEdit } from "react-icons/md";
+import { MdDelete, MdModeEdit, MdOutlineTopic } from "react-icons/md";
 import Loader from '@/components/ui/Basics/Loader/Loader';
 import PublicationReactions from '@/components/ui/propuesta/PublicationReactions/PublicationReactions';
 import { useSession } from 'next-auth/react';
@@ -19,6 +19,7 @@ import { toast } from '@/hooks/use-toast';
 import EditPublicationForm from '@/components/ui/propuesta/EditPublicationForm/EditPublicationForm';
 import { useUser } from '@/app/context/UserContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function PublicationDetailPage() {
   const router = useRouter();
@@ -175,6 +176,33 @@ export default function PublicationDetailPage() {
               ) : (
                 <div className="border border-gray-300 p-4 mb-4 shadow-sm">
                   <div className='flex justify-between'>
+                    <div className='flex items-center text-sm text-gray-500 mb-2'>
+                      <PiDotOutlineFill  className='text-pallette-10'/>
+                      <MdOutlineTopic className='mr-1 '/>
+                      {
+                        publication?.page.id === 1 ? (
+                          <Link href="/temas/organizacion-politica-y-administrativa-del-peru">
+                            Organización Política y Administrativa
+                          </Link>
+                        ) : publication?.page.id === 2 ? (
+                          <Link href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                            Evolución de los Movimientos Sociales
+                          </Link>
+                        ) : null
+                      }
+                    </div>  
+                    <div>
+                      {/* Solo mostramos el botón de eliminar si no está cargando y hay una publicación */}
+                      {!loading && publication && publication?.user?.mail === user?.mail && (
+                        <button onClick={openDialog}>
+                          <div className='flex items-center'>  
+                            <MdDelete className='h-5 w-5'/>
+                          </div>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div className='flex justify-between'>
                     <div className='flex'>
                       <h3 className="text-lg font-semibold">{publication?.title}</h3>
                       {/* Solo mostramos el botón de editar si no está cargando y hay una publicación */}
@@ -186,14 +214,6 @@ export default function PublicationDetailPage() {
                         </button>
                       )}
                     </div>
-                    {/* Solo mostramos el botón de eliminar si no está cargando y hay una publicación */}
-                    {!loading && publication && publication?.user?.mail === user?.mail && (
-                      <button onClick={openDialog}>
-                        <div className='flex items-center'>  
-                          <MdDelete className='h-5 w-5'/>
-                        </div>
-                      </button>
-                    )}
                   </div>
                   <div
                     className="text-sm text-gray-600 mb-2 leading-relaxed"
@@ -207,17 +227,23 @@ export default function PublicationDetailPage() {
                       {publicationId && <PublicationReactions publicationId={publicationId} />}
                     </div>
                   ) : (
-                    <div className="flex items-center space-x-6">
-                      <div className="flex items-center text-gray-700 space-x-1">
-                        <BiLike />
-                        <span>{publication?.likes_count}</span>
+                    <Link href={'/auth/login'}>
+                      <div className='text-md justify-center flex mb-2'>
+                        <div className='font-semibold'>¿Qué te pareció esta propuesta?</div>
                       </div>
-                      <div className="flex items-center text-gray-700 space-x-1">
-                        <BiDislike />
-                        <span>{publication?.dislikes_count}</span>
+                      <div className="flex items-center space-x-6 justify-center text-xl">
+                        <div className="flex items-center text-gray-700 space-x-1 opacity-50">
+                          <BiLike />
+                          <span>{publication?.likes_count}</span>
+                        </div>
+                        <div className="flex items-center text-gray-700 space-x-1 opacity-50">
+                          <BiDislike />
+                          <span>{publication?.dislikes_count}</span>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   )}
+                  <hr className='my-4'/>
                   <div className="mt-2">
                     {publication?.tags && publication?.tags.length > 0 ? (
                       <div className="flex flex-wrap gap-2 mt-2">

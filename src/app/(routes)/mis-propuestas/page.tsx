@@ -25,6 +25,7 @@ import { useUser } from '@/app/context/UserContext';
 import { useUserDataPub } from '@/hooks/publications/userDataPub';
 import { forTopicsUserPageConfig } from '@/utils/publications/forTopicUserPageConfig';
 import Loader from '@/components/ui/Basics/Loader/Loader';
+import { MdOutlineTopic } from 'react-icons/md';
 
 
 export default function Home() {
@@ -179,6 +180,21 @@ export default function Home() {
               {sortedPubUserByDate.slice(0, 3).map((pub) => (
                 <div key={pub.id} className="flex flex-col space-y-2">
                   <hr />
+                  <div className='flex items-center text-sm text-gray-500 mb-2'>
+                    <PiDotOutlineFill  className='text-pallette-10'/>
+                    <MdOutlineTopic className='mr-1 '/>
+                    {
+                      pub?.page.id === 1 ? (
+                        <Link href="/temas/organizacion-politica-y-administrativa-del-peru">
+                          Organización Política y Administrativa
+                        </Link>
+                      ) : pub?.page.id === 2 ? (
+                        <Link href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                          Evolución de los Movimientos Sociales
+                        </Link>
+                      ) : null
+                    }
+                  </div>  
                   {/* Enlace a la publicación */}
                   <Link className="hover:underline hover:text-blue-700" href={`/propuesta?post=${pub.id}`}>
                     <h3 className="text-lg font-semibold">{pub.title}</h3>
@@ -279,10 +295,27 @@ export default function Home() {
               ) : (
                 currentItems.map((pub) => (
                   <div key={pub.id} className="border border-gray-300 p-4 mb-4 shadow-sm space-y-4">
-                    <div className='flex items-center text-sm text-gray-500 mb-2'>
-                      <PiDotOutlineFill  className='text-pallette-10'/>
-                      <IoCalendarOutline className='mr-1 '/>
-                      {new Date(pub.date).toLocaleString()}
+                    <div className='flex flex-wrap md:space-x-4'> 
+                      <div className='flex items-center text-sm text-gray-500 mb-2'>
+                        <PiDotOutlineFill  className='text-pallette-10'/>
+                        <MdOutlineTopic className='mr-1 '/>
+                        {
+                          pub?.page.id === 1 ? (
+                            <Link href="/temas/organizacion-politica-y-administrativa-del-peru">
+                              Organización Política y Administrativa
+                            </Link>
+                          ) : pub?.page.id === 2 ? (
+                            <Link href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                              Evolución de los Movimientos Sociales
+                            </Link>
+                          ) : null
+                        }
+                      </div>      
+                      <div className='flex items-center text-sm text-gray-500 mb-2'>
+                        <PiDotOutlineFill  className='text-pallette-10'/>
+                        <IoCalendarOutline className='mr-1 '/>
+                        {new Date(pub.date).toLocaleString()}
+                      </div>
                     </div>
                     <Link className="hover:underline hover:text-blue-700" href={`/propuesta?post=${pub.id}`}>
                       <h3 className="text-xl font-semibold">{pub.title}</h3>

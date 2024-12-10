@@ -216,7 +216,7 @@ function LoginPage() {
         </div>
       </div>
       <div className="hidden lg:block lg:w-1/2 relative">
-        <div className='p-36 animate-float'>
+        <div className='p-20 2xl:p-36 animate-float text-center justify-center'>
           <Typewriter />
           <Image
             className={`relative object-cover h-full block shadow-lg transition-opacity duration-1000 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}

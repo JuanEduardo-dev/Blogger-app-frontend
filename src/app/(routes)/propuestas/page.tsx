@@ -20,6 +20,7 @@ import { forTopicsUserPageConfig } from '@/utils/publications/forTopicUserPageCo
 import Loader from '@/components/ui/Basics/Loader/Loader';
 import { IoCalendarOutline } from 'react-icons/io5';
 import { CiUser } from 'react-icons/ci';
+import { MdOutlineTopic } from 'react-icons/md';
 
 export default function Home() {
   const { publications: pub, isLoading: pubDataLoad,
@@ -28,7 +29,7 @@ export default function Home() {
   
   const [searchQuery, setSearchQuery] = useState("");
   
-  const [filterTime, setFilterTime] = useState('all'); // 'all', 'last1h', 'last25h', 'last7d'
+  const [filterPage, setFilterPage] = useState('all'); // 'all'
   
   const [filterType, setFilterType] = useState('date'); // 'likes', 'dislikes', 'tags', 'date'
   
@@ -56,25 +57,18 @@ export default function Home() {
       const matchesSearch = !searchQuery || 
         publication.title.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // Time Filter
-      const currentTime = new Date();
-      let timeFilter = true;
-      if (filterTime === 'last1h') {
-        timeFilter = (new Date(publication.date).getTime() > currentTime.getTime() - 1 * 60 * 60 * 1000);
-      } else if (filterTime === 'last24h') {
-        timeFilter = (new Date(publication.date).getTime() > currentTime.getTime() - 24 * 60 * 60 * 1000);
-      } else if (filterTime === 'last7d') {
-        timeFilter = (new Date(publication.date).getTime() > currentTime.getTime() - 7 * 24 * 60 * 60 * 1000);
-      }
+      // PageId Filter
+      const matchesPageId = filterPage === 'all' || 
+      publication.page_id.toString() === filterPage;
 
-      // Tag Filter
-      const hasSelectedTags = Object.keys(selectedTags).filter(tag => selectedTags[tag]).length > 0;
-      const matchesTags = !hasSelectedTags || 
-        publication.tags.some(tag => selectedTags[tag.title]);
+        // Tag Filter
+        const hasSelectedTags = Object.keys(selectedTags).filter(tag => selectedTags[tag]).length > 0;
+        const matchesTags = !hasSelectedTags || 
+          publication.tags.some(tag => selectedTags[tag.title]);
 
-      return matchesSearch && timeFilter && matchesTags;
-    });
-  };
+        return matchesSearch && matchesPageId  && matchesTags;
+      });
+    };
 
   // Sorting Function
   const sortPublications = (publications: any[]) => {
@@ -163,17 +157,10 @@ export default function Home() {
               ) : (
                 currentItems.map((pub) => (
                   <div key={pub.id} className="border border-gray-300 p-4 mb-4 shadow-sm space-y-4"> 
-                    <div className='flex flex-wrap justify-start md:space-x-4'>
-                      <div className='flex items-center text-base text-gray-500 mb-2'>
-                        <CiUser  className='mr-1'/>
-                        Por: {pub.user.name} {pub.user.lastName}
-                      </div>
-                      <div className='flex items-center text-base text-gray-500 mb-2'>
-                        <PiDotOutlineFill  className='text-pallette-10'/>
-                        <IoCalendarOutline className='mr-1 '/>
-                        {new Date(pub.date).toLocaleString()}
-                      </div>
-                    </div>
+                    <div className='flex items-center text-base text-gray-500 mb-2'>
+                      <CiUser  className='mr-1'/>
+                      Por: {pub.user.name} {pub.user.lastName}
+                    </div>  
 
                     <Link className="hover:underline hover:text-blue-700" href={`/propuesta?post=${pub.id}`}>
                       <h3 className="text-xl font-semibold">{pub.title}</h3>
@@ -195,6 +182,28 @@ export default function Home() {
                           <span>{pub.dislikes_count}</span>
                         </div>
                       </Link>
+                    </div>
+                    <div className='flex flex-wrap justify-start md:space-x-4'>
+                      <div className='flex items-center text-sm text-gray-500 mb-2'>
+                        <PiDotOutlineFill  className='text-pallette-10'/>
+                        <MdOutlineTopic className='mr-1 '/>
+                        {
+                          pub?.page.id === 1 ? (
+                            <Link href="/temas/organizacion-politica-y-administrativa-del-peru">
+                              Organización Política y Administrativa
+                            </Link>
+                          ) : pub?.page.id === 2 ? (
+                            <Link href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                              Evolución de los Movimientos Sociales
+                            </Link>
+                          ) : null
+                        }
+                      </div>
+                      <div className='flex items-center text-sm text-gray-500 mb-2'>
+                        <PiDotOutlineFill  className='text-pallette-10'/>
+                        <IoCalendarOutline className='mr-1 '/>
+                        {new Date(pub.date).toLocaleString()}
+                      </div>
                     </div>
                     <div className="mt-2">
                       {pub.tags && pub.tags.length > 0 ? (
@@ -242,18 +251,17 @@ export default function Home() {
 
         <div className='p-4 border border-gray-300'>
           <div className="flex flex-col items-start">
-            {/* 2. Time Filter */}
+            {/* 2. Page Filter */}
             <select 
-              value={filterTime}
-              onChange={(e) => setFilterTime(e.target.value)}
+              value={filterPage}
+              onChange={(e) => setFilterPage(e.target.value)}
               className="p-2 border border-gray-300 hover:border-gray-500 rounded-sm 
                 focus:outline-none focus:ring-blue-500 focus:border-blue-500
                 transition-colors duration-300 ease-in-out w-full"
             >
-              <option value="all">Todo el tiempo</option>
-              <option value="last1h">Última hora</option>
-              <option value="last24h">Últimas 24 horas</option>
-              <option value="last7d">Última semana</option>
+              <option value="all">Todos los temas</option>
+              <option value="1">Organización Política y Administrativa</option>
+              <option value="2">Evolución de los Movimientos Sociales</option>
             </select>
           </div>
         </div>
@@ -334,6 +342,21 @@ export default function Home() {
               {sortedPubByDate.slice(0, 3).map((pub) => (
                 <div key={pub.id} className="flex flex-col space-y-2">
                   <hr />
+                  <div className='flex items-center text-sm text-gray-500 mb-2'>
+                    <PiDotOutlineFill  className='text-pallette-10'/>
+                    <MdOutlineTopic className='mr-1 '/>
+                    {
+                      pub?.page.id === 1 ? (
+                        <Link href="/temas/organizacion-politica-y-administrativa-del-peru">
+                          Organización Política y Administrativa
+                        </Link>
+                      ) : pub?.page.id === 2 ? (
+                        <Link href="/temas/evolucion-de-los-movimientos-sociales-en-el-peru">
+                          Evolución de los Movimientos Sociales
+                        </Link>
+                      ) : null
+                    }
+                  </div>  
                   {/* Enlace a la publicación */}
                   <Link className="hover:underline hover:text-blue-700" href={`/propuesta?post=${pub.id}`}>
                     <h3 className="text-lg font-semibold">{pub.title}</h3>

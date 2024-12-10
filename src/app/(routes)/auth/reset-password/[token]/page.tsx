@@ -83,8 +83,8 @@ export default function ResetPasswordPage() {
     <div className="h-[calc(100svh-114px)] flex flex-row items-center justify-center">
       <div className="flex flex-col justify-center items-center space-y-2 w-full p-4">
         <div className="text-center max-w-md">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-2">Restablecer contraseña</h1>
-          <p className="text-base text-gray-600">Introduce una nueva contraseña para restablecerla.</p>
+          <h1 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-2">Restablecer contraseña</h1>
+          <p className="text-base text-gray-600">Introduzca una nueva contraseña.</p>
         </div>
 
         <div className="w-full p-4 max-w-md">

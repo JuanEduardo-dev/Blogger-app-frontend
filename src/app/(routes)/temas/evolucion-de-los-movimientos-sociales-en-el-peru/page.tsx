@@ -954,85 +954,7 @@ export default function Home() {
           </div>
         </div>
         {/* Desktop Only */}
-        <div className="px-4 lg:px-0 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-1 lg:mt-16 lg:ml-8 space-y-4">
-          <div className='p-4 border border-gray-300'>
-            <div className="flex flex-col items-start">
-              <p className="text-xl font-semibold mb-2">Problemas identificados</p>
-              <div className="flex space-x-2 w-full">
-                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-              </div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
-                  <AccordionContent>
-                    <p className='text-gray-600 leading-relaxed space-y-2'>
-                    A pesar del crecimiento económico en las últimas décadas, amplios sectores de la población (especialmente en zonas rurales) no han accedido a servicios básicos, empleo digno ni oportunidades de desarrollo.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
-                  <AccordionContent>
-                    <p className='text-gray-600 leading-relaxed space-y-2'>
-                    Los pueblos indígenas y comunidades campesinas reclaman el reconocimiento de sus derechos culturales, territoriales y la consulta previa para proyectos que los afectan.
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-
-          <div className='p-4 border border-gray-300'>
-            <div className="flex flex-col items-start">
-              <p className="text-xl font-semibold mb-2">Soluciones propuestas</p>
-              <div className="flex space-x-2 w-full">
-                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-              </div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
-                  <AccordionContent>
-                    <div className='text-gray-600 leading-relaxed space-y-2'>    
-                      <p className='text-black'>Implementar un Sistema Integral de Inclusión y Desarrollo Rural.</p>
-                      <p>Garantizaremos que las comunidades rurales tengan acceso equitativo a servicios básicos, empleo y oportunidades mediante un sistema integrado de planificación, monitoreo y ejecución.</p>
-                      <p>Este sistema podría usar inteligencia artificial para analizar datos demográficos, geográficos y socioeconómicos, identificando las comunidades más vulnerables.</p>
-                      <p>Se va a priorizar la asignación de recursos para agua potable, electricidad, educación y salud en las zonas rurales mediante un modelo de toma de decisiones basado en datos.</p>
-                      <p>La plataforma digital podría conectar a comunidades rurales con oportunidades de empleo remoto, formación técnica y apoyo para emprendedores locales (comercio electrónico para productos agrícolas).</p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
-                  <AccordionContent>
-                    <div className='text-gray-600 leading-relaxed space-y-2'>    
-                      <p className='text-black'>Implementar una Plataforma de Gestión de Derechos y Consulta Ciudadana.</p>
-                      <p>Con este sistema se busca facilitar la comunicación, la consulta previa y la gestión de derechos culturales y territoriales en proyectos que afectan a pueblos indígenas y comunidades campesinas.</p>
-                      <p>Este será un sistema que registre los territorios ancestrales, con información cultural, social y ambiental relevante para proteger los derechos de estas comunidades.</p>
-                      <p>Será una herramienta en la que las comunidades puedan participar en procesos de consulta previa en su idioma y mediante tecnologías accesibles (aplicaciones móviles o centros comunitarios).</p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-
-          <div className='p-4 border border-gray-300'>
-            <div className="flex flex-col items-start">
-              <p className="text-xl font-semibold mb-2">Conclusiones</p>
-              <div className="flex space-x-2 w-full mb-2">
-                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
-                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
-              </div>
-              <div className='text-gray-600 mt-2 leading-relaxed space-y-2'>
-                <p>Los movimientos sociales en Perú han sido esenciales para la defensa de la democracia y los derechos humanos, logrando importantes reformas políticas y visibilizando problemáticas como la violencia de género, la exclusión indígena y la corrupción.</p>
-                <p>La articulación con movimientos internacionales y el uso de redes sociales han fortalecido las causas sociales en Perú, permitiendo una organización más efectiva y una mayor presión nacional e internacional para generar cambios.</p>
-                <p>Las nuevas generaciones han tomado un rol protagónico en la defensa de la justicia social y el medio ambiente, consolidando al movimiento juvenil y ambientalista como actores clave para el futuro de Perú.</p>
-              </div>
-            </div>
-          </div>
-
+        <div className="px-4 lg:px-0 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-1 lg:mt-16 lg:ml-8 space-y-4 sm:mr-4 xl:mr-0">
           <div className='p-8 border border-gray-300 bg-blue-600'>
             <div className="flex flex-col items-start text-white">
               <h1 className="text-2xl font-bold mb-2">¿Tienes una idea?</h1>
@@ -1052,6 +974,206 @@ export default function Home() {
               </Link>
             </div>
           </div>
+          
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Problemas identificados</p>
+              <div className="flex space-x-2 w-full">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Desatención histórica a las demandas sociales
+                      </p>
+                      <p>
+                      •	Desatención histórica a las demandas sociales
+                      </p>
+                      <p>
+                      •	Conflictos sociales sin resolver
+                      </p>
+                      <p>
+                      •	Falta de diálogo efectivo entre Estado y movimientos sociales
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
+                  <AccordionContent>
+                  <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Conflictos socioambientales por actividades extractivas
+                      </p>
+                      <p>
+                      •	Demandas históricas regionales no atendidas
+                      </p>
+                      <p>
+                      •	Débil articulación entre movimientos regionales
+                      </p>
+                      <p>
+                      •	Falta de representatividad en gobiernos regionales
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Nivel local</AccordionTrigger>
+                  <AccordionContent>
+                  <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Protestas por servicios básicos deficientes
+                      </p>
+                      <p>
+                      •	Conflictos por uso de recursos naturales
+                      </p>
+                      <p>
+                      •	Desconfianza hacia autoridades locales
+                      </p>
+                      <p>
+                      •	Fragmentación de organizaciones sociales
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Soluciones propuestas</p>
+              <div className="flex space-x-2 w-full">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Nivel nacional (Perú)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Crear mecanismos permanentes de diálogo social.
+                      </p>
+                      <p>
+                      •	Implementar políticas preventivas de conflictos.
+                      </p>
+                      <p>
+                      •	Fortalecer la Defensoría del Pueblo.
+                      </p>
+                      <p>
+                      •	Desarrollar protocolos de intervención no violenta.
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Nivel regional (Huánuco)</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Establecer mesas de diálogo multiactor.
+                      </p>
+                      <p>
+                      •	Establecer mesas de diálogo multiactor.
+                      </p>
+                      <p>
+                      •	Fortalecer organizaciones sociales regionales.
+                      </p>
+                      <p>
+                      •	Implementar consultas previas efectivas.
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Nivel local</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='text-gray-600 leading-relaxed space-y-2'>
+                      <p>
+                      •	Fortalecer juntas vecinales y organizaciones de base.
+                      </p>
+                      <p>
+                      •	Implementar presupuestos participativos efectivos.
+                      </p>
+                      <p>
+                      •	Crear espacios de concertación local.
+                      </p>
+                      <p>
+                      •	Mejorar canales de comunicación con autoridades.
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Propuestas con la Ingeniería de Sistemas</p>
+              <div className="flex space-x-2 w-full mb-2">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className='text-gray-600 mt-2 leading-relaxed space-y-2'>
+                <p>Se propone desarrollar una Plataforma Digital de Gestión y Prevención de Conflictos Sociales que tenga consigo:</p>
+                <div className='ml-2 text-base space-y-2'>
+                  <p>•	Un sistema de alerta temprana</p>
+                  <p>Monitoreo en tiempo real de conflictos sociales.
+                  Análisis predictivo de posibles conflictos.
+                  Mapeo georreferenciado de movimientos sociales.
+                  Indicadores de tensión social.
+                  </p>
+                  <p>•	Módulo de gestión de diálogo</p>
+                  <p>Monitoreo en tiempo real de conflictos sociales.
+                  Análisis predictivo de posibles conflictos.
+                  Mapeo georreferenciado de movimientos sociales.
+                  Indicadores de tensión social.
+                  </p>
+                  <p>•	Portal de transparencia social</p>
+                  <p>Información sobre proyectos y presupuestos.
+                  Estado de cumplimiento de acuerdos.
+                  Repositorio de documentos y actas.
+                  Estadísticas e informes.
+                  </p>
+                </div>
+                <p>Beneficios de la plataforma:</p>
+                <div className='ml-2 text-base space-y-2'>
+                  <p>•	Prevención temprana de conflictos.</p>
+                  <p>•	Mejor coordinación entre actores.</p>
+                  <p>•	Transparencia en acuerdos y compromisos.</p>
+                  <p>•	Participación ciudadana efectiva.</p>
+                  <p>•	Toma de decisiones basada en evidencia.</p>
+                </div>
+                <p>Implementación gradual:</p>
+                <p>Fase 1: Desarrollo y prueba piloto</p>
+                <p>Fase 2: Implementación en regiones prioritarias</p>
+                <p>Fase 3: Expansión nacional</p>
+                <p>Fase 4: Integración con otros sistemas estatales</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='p-4 border border-gray-300'>
+            <div className="flex flex-col items-start">
+              <p className="text-xl font-semibold mb-2">Conclusiones</p>
+              <div className="flex space-x-2 w-full mb-2">
+                <div className="w-16 h-1 bg-blue-700 rounded-sm"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className='text-gray-600 mt-2 leading-relaxed space-y-2'>
+                <p>Los movimientos sociales en Perú han sido esenciales para la defensa de la democracia y los derechos humanos, logrando importantes reformas políticas y visibilizando problemáticas como la violencia de género, la exclusión indígena y la corrupción.</p>
+                <p>La articulación con movimientos internacionales y el uso de redes sociales han fortalecido las causas sociales en Perú, permitiendo una organización más efectiva y una mayor presión nacional e internacional para generar cambios.</p>
+                <p>Las nuevas generaciones han tomado un rol protagónico en la defensa de la justicia social y el medio ambiente, consolidando al movimiento juvenil y ambientalista como actores clave para el futuro de Perú.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div className="p-4 lg:col-span-4">
           <HyvorCommentCount 

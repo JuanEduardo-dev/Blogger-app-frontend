@@ -4,7 +4,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'bucassan.clinica.dental@gmail.com',
-    pass: 'xaxd begf yvfn niei'  // App Password de Google
+    pass: 'xaxd begf yvfn niei'
   }
 });
 
