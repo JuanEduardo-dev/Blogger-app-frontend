@@ -1,15 +1,10 @@
 // app/api/publications/all/get-by-id/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 
-// Ahora estamos asegurándonos de que los parámetros sean esperados correctamente.
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { publicationId: string } }
-) {
-  // No debes acceder a `params` directamente sino esperar que se resuelvan
+export async function GET(request: NextRequest) {
   try {
-    // La propiedad `params` es asincrónica, debemos esperar su resolución
-    const { publicationId } = await params;
+    const { searchParams } = new URL(request.url);
+    const publicationId = searchParams.get('post');
 
     if (!publicationId) {
       return NextResponse.json(

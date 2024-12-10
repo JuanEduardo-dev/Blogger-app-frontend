@@ -107,7 +107,7 @@ const PublicationReactions: React.FC<ReactionProps> = ({ publicationId }) => {
 
   return (
     <>
-      <div className="flex flex-row items-center justify-center text-lg w-full my-2">
+      <div className="flex flex-row items-center justify-center text-md w-full my-2">
         <div >
           <div>
             <div className='font-semibold'>¿Qué te pareció esta propuesta?</div>

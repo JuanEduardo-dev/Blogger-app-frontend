@@ -113,7 +113,7 @@ export default function PublicationDetailPage() {
 
     const fetchPublication = async () => {
       try {
-        const response = await fetch(`/api/publications/all/by-id/${publicationId}`);
+        const response = await fetch(`/api/publications/all/by-id?post=${publicationId}`);
         const responseData = await response.json();
         
         if (!response.ok) {

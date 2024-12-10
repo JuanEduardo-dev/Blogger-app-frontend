@@ -1,6 +1,6 @@
 // auth.ts
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/AuthOption";
 import { getToken } from "next-auth/jwt";
 import { NextApiRequest } from "next";
 
