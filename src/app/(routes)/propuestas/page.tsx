@@ -223,7 +223,7 @@ export default function Home() {
               )}
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex justify-center mt-4">
+                <div className="flex flex-wrap justify-center mt-4">
                   {Array.from({ length: totalPages }, (_, i) => (
                     <button
                       key={i}
@@ -231,7 +231,7 @@ export default function Home() {
                         setCurrentPage(i + 1);
                         window.scrollTo(0, 0);
                       }}
-                      className={`mx-1 mb-2 px-4 py-3 rounded ${
+                      className={`px-4 py-2 m-1 rounded-md lg:mb-4 ${
                         currentPage === i + 1 
                           ? 'bg-pallette-10 text-white' 
                           : 'bg-gray-200'
@@ -246,8 +246,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <hr className='block lg:hidden' />
       {/* Desktop Only */}
-      <div className="lg:w-1/3 relative reveal fade-right mt-2 p-4 space-y-4">
+      <div className="lg:w-1/3 relative reveal fade-right lg:mt-2 p-4 space-y-4">
 
         <div className='p-4 border border-gray-300'>
           <div className="flex flex-col items-start">
