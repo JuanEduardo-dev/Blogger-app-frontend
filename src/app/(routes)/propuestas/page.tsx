@@ -231,9 +231,9 @@ export default function Home() {
                         setCurrentPage(i + 1);
                         window.scrollTo(0, 0);
                       }}
-                      className={`mx-1 px-3 py-1 rounded ${
+                      className={`mx-1 mb-2 px-4 py-3 rounded ${
                         currentPage === i + 1 
-                          ? 'bg-blue-500 text-white' 
+                          ? 'bg-pallette-10 text-white' 
                           : 'bg-gray-200'
                       }`}
                     >
