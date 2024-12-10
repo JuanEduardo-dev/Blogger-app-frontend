@@ -415,30 +415,36 @@ function RegisterPage() {
       <div className="flex flex-col justify-center items-center space-y-2 w-full p-4">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
-            {currentStep === 1 ? "Crear cuenta" : "Cuéntanos Sobre Ti"}
+            {currentStep === 1 ? "Crear cuenta" : "Sobre Ti"}
           </h1>
         </div>
         <div className="w-full max-w-md p-4 border-gray-200">
         {currentStep === 1 && renderStep1()}
         {currentStep === 2 && renderStep2()}
-          <div className="flex items-center justify-center my-4">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="mx-4 text-gray-500">o</span>
-            <div className="flex-grow border-t border-gray-300"></div>
-          </div>
-          {/* Botón de Google */}
-          <div className="mt-4">
-            <button
-              type="button" // Asegura que no se envíe el formulario
-              onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center bg-white border border-gray-300 rounded-md py-2 text-sm font-medium text-black hover:bg-gray-50"
-            >
-              <div className="flex items-center">         
-                <FcGoogle className="w-5 h-5 mr-2" />
-                Continuar con Google
+          {/* Solo mostrar el contenido de abajo cuando currentStep sea 1 */}
+          {currentStep === 1 && (
+            <>
+              <div className="flex items-center justify-center my-4">
+                <div className="flex-grow border-t border-gray-300"></div>
+                <span className="mx-4 text-gray-500">o</span>
+                <div className="flex-grow border-t border-gray-300"></div>
               </div>
-            </button>
-          </div>
+
+              {/* Botón de Google */}
+              <div className="mt-4">
+                <button
+                  type="button" // Asegura que no se envíe el formulario
+                  onClick={handleGoogleSignIn}
+                  className="w-full flex items-center justify-center bg-white border border-gray-300 rounded-md py-2 text-sm font-medium text-black hover:bg-gray-50"
+                >
+                  <div className="flex items-center">
+                    <FcGoogle className="w-5 h-5 mr-2" />
+                    Continuar con Google
+                  </div>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

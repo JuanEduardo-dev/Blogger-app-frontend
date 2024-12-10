@@ -32,6 +32,12 @@ body {
   pointer-events: none; 
 } 
 
+@layer components {
+  .custom-placeholder::placeholder {
+    color: black;
+  }
+}
+
 @layer base {
   :root { 
     --radius: 0.5rem; 

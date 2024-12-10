@@ -1,10 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
+import { signOut, useSession } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { LogOut, Menu, Plus, User as IconUser} from 'lucide-react';
+
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/Shadcn/drawer"
 
 import {
   NavigationMenu,
@@ -15,21 +23,71 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from "@/components/ui/Shadcn/navigation-menu"
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 
 import { PiTreeStructure } from "react-icons/pi";
 import { HiOutlineUserGroup } from "react-icons/hi2";
+import { useUser } from '@/app/context/UserContext';
+import { Degree, User } from '@/types/user';
+import { DegreeIcon } from '@/utils/user/degreeIcon';
+
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
+  const { user, loading } = useUser();
+  const degree: Degree = user?.degreeTitle as Degree;
+  
   const authRoutes = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
   const isAuthRoute = authRoutes.includes(pathname) || pathname.startsWith('/auth/reset-password/');
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [fechaFormateada, setFechaFormateada] = useState<string>('');
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Cerrar dropdown si se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: { target: any; }) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Definir las acciones que se ejecutarán al hacer clic
+  const menuItems = [
+    { 
+      icon: <IconUser className="h-5 w-5" />, 
+      label: 'Mi cuenta', 
+      href: '/mi-cuenta',
+    },
+    { 
+      icon: <Plus className="h-5 w-5" />, 
+      label: 'Crear propuesta', 
+      href: '/mis-propuestas?step=2'
+    },
+    { 
+      icon: <LogOut className="h-5 w-5" />, 
+      label: 'Cerrar Sesión', 
+      href: '/',
+      action: () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        signOut();
+      }
+    },
+  ];
 
   useEffect(() => {
     // Obtener la fecha y formatearla
@@ -106,11 +164,7 @@ const Navbar = () => {
       `}
       aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
     >
-      {isMenuOpen ? (
-        <X className="text-pallette-10" size={24} />
-      ) : (
-        <Menu className={`${isFixed ? 'text-pallette-10' : 'text-pallette-10'}`} size={24} />
-      )}
+    <Menu className='mr-4' size={24} />
     </button>
   );
 
@@ -181,27 +235,6 @@ const Navbar = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-
-      {/*
-      {navLinks.map((link) => (
-        <Link 
-          key={link.href}
-          href={link.href}
-          className={`h-9 px-4 flex items-center rounded-full
-            ${pathname === link.href ? 'bg-gray-100 text-black' : 'text-gray-500 hover:bg-gray-100 hover:text-black'}
-          `}
-        >
-
-          {link.label}
-
-          {!mobile && (
-            <span className={`absolute bottom-0 left-0 h-[1px] bg-current transition-all duration-200 ease-out 
-              ${pathname === link.href ? 'w-full' : 'w-0'}
-              group-hover:w-full
-            `}></span>
-          )}
-        </Link>         
-      ))} */}
     </>
   );
 
@@ -212,63 +245,107 @@ const Navbar = () => {
         ${!isAuthRoute ? 'gap-4 ' : ''}
         ${mobile ? 'pt-8 flex-col' : 'font-medium'}`
         }>
-        <Link 
-          href="/auth/login"
-        >
-          <button className={`h-9 items-center gap-4 text-black px-4 transition-colors rounded-lg duration-200 hover:bg-gray-100 border-[1px]
-              ${pathname === "/auth/login" ? 'hidden' : ''}
-            `}>
-            <span>Iniciar sesión</span>
-          </button>
-        </Link>
-        <Link 
-          href="/auth/register"
-        >
-          <button className={`h-9 items-center gap-4 bg-pallette-10 text-white rounded-lg px-4 transition-colors duration-200 hover:bg-pallette-10-contrast
-            ${pathname === "/auth/register" ? 'hidden' : ''}
-            `}>
-            <span>Registrarse</span>
-          </button>
-        </Link>
+          {!session ? (
+            <>
+              <Link 
+                href="/auth/login"
+              >
+                <button className={`h-9 items-center gap-4 text-black px-4 transition-colors rounded-lg duration-200 hover:bg-gray-100 border-[1px]
+                    ${pathname === "/auth/login" ? 'hidden' : ''}
+                  `}>
+                  <span>Iniciar sesión</span>
+                </button>
+              </Link>
+              <Link 
+                href="/auth/register"
+              >
+                <button className={`h-9 items-center gap-4 bg-pallette-10 text-white rounded-lg px-4 transition-colors duration-200 hover:bg-pallette-10-contrast
+                  ${pathname === "/auth/register" ? 'hidden' : ''}
+                  `}>
+                  <span>Registrarse</span>
+                </button>
+              </Link>
+            </> 
+          ) : 
+          <div ref={dropdownRef} className="relative inline-block text-left">
+            <div className='flex flex-row items-center space-x-4'>         
+              <div className='hidden md:block font-semibold text-gray-700'>
+                {user?.name} {user?.lastName}
+              </div>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-700 flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:shadow-[0_0_0_4px_rgba(0,0,0,0.1)] transition-all duration-200 ease-in-out"
+              >
+                <DegreeIcon degree={degree} size="24px" />
+              </button>
+            </div>
+
+            {isOpen && (
+              <div className="absolute right-0 mt-4 w-56 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  {menuItems.map((item, index) => (
+                    <Link href={item.href} key={index}>
+                      <button
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={(e) => {
+                          // Si el ítem tiene una acción definida, ejecutarla
+                          if (item.action) {
+                            e.preventDefault(); // Prevenir navegación si hay una acción
+                            item.action(); // Ejecutar la acción
+                          }
+                          setIsOpen(false); // Cerrar el menú
+                        }}
+                      >
+                        {item.icon}
+                        <span className="ml-2">{item.label}</span>
+                      </button>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          }
       </div>
     );
   };
 
   // Mobile Menu Component
   const MobileMenu = () => (
-    <div
-      className={`relative bg-pallette-60 transition-transform transform duration-300 ease-in-out z-40 
-        ${isFixed ? 'h-[calc(100svh-48px)] ' : 'h-[calc(100svh-88px)] '}
-        ${isMenuOpen ? 'translate-x-0' : 'hidden'}
-        lg:hidden`}
-    >
-      <div className="flex items-center w-full h-[calc(100svh-186px)] justify-center pl-8 pr-8">
-        <div className='relative flex flex-col items-center'>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="w-full text-center text-gray-700 text-lg py-3 hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+    <Drawer open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+      <DrawerContent>
+        <div className="mx-auto w-full max-w-sm">
+          <DrawerHeader>
+            <DrawerTitle className='text-center'>Menú</DrawerTitle>
+          </DrawerHeader>
+          <div className='relative flex flex-col items-center'>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="w-full pl-8 pr-8 text-center text-gray-700 text-lg py-3 hover:bg-gray-100"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          {!session ? (
+            <div className='m-2'>
+              <Link href="/auth/login">
+                <button className="w-full bg-white hover:bg-gray-100 text-gray-800 text-lg py-2 rounded-md mb-3 border-[1px] border-gray-300">
+                  Iniciar sesión
+                </button>
+              </Link>
+              <Link href="/auth/register">
+                <button className="w-full bg-pallette-10 text-white text-lg py-2 rounded-md">
+                  Registrarse
+                </button>
+              </Link>
+            </div>
+          ) : null}
         </div>
-        <div className="w-full px-6 absolute bottom-0 left-0  pb-6">
-          <Link href="/auth/login">
-            <button className="w-full bg-gray-100 text-gray-700 text-lg py-2 rounded-md mb-3 border-[1px]">
-              Iniciar sesión
-            </button>
-          </Link>
-          <Link href="/auth/register">
-            <button className="w-full bg-pallette-10 text-white text-lg py-2 rounded-md">
-              Registrarse
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
+      </DrawerContent>
+    </Drawer>
   );
 
   return (
@@ -304,7 +381,7 @@ const Navbar = () => {
         style={{
           WebkitBackdropFilter: isFixed ? 'saturate(180%) blur(5px)' : 'none',
           backdropFilter: isFixed ? 'none' : 'none',
-          boxShadow: isFixed ? 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)' : 'none',
+          boxShadow: !isAuthRoute ? 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)' : 'none',
         }}
       >
         <div 
@@ -312,23 +389,28 @@ const Navbar = () => {
             ${isAuthRoute ? 'max-w-full' : 'max-w-7xl '}
             `}
         >
-          <div className="lg:flex lg:items-center lg:gap-12">
-            <Logo />
-            <div className={`items-center gap-4 font-regular
-              ${!isAuthRoute ? 'hidden lg:flex' : 'hidden'}
-              `}>
-              <NavLinks />
+          <div className='flex items-center justify-start'>
+            <MenuButton />
+            <div className="lg:flex lg:items-center lg:gap-12">
+              <Logo />
+              <div className={`items-center gap-4 font-regular
+                ${!isAuthRoute ? 'hidden lg:flex' : 'hidden'}
+                `}>
+                <NavLinks />
+              </div>
             </div>
           </div>
-          <MenuButton />
           
           {/* Desktop Social Icons */}
           <div className={`
-              ${!isAuthRoute ? 'hidden lg:flex' : 'flex'}
+              ${!isAuthRoute ? 'lg:flex' : 'flex'}
               ${isAuthRoute && 
                 (pathname !== "/auth/register" && pathname !== "/auth/login")
                  ? 'hidden' : ''}
-              `}>
+                 
+              ${!session && (pathname !== "/auth/register" && pathname !== "/auth/login") ? 'hidden' : ''}
+              `}
+          >
             <AuthButtons />
           </div>
         </div>

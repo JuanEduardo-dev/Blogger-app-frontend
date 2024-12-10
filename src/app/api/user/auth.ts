@@ -2,6 +2,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { getToken } from "next-auth/jwt";
+import { NextApiRequest } from "next";
 
 export async function getUserIdFromToken(req: Request) {
   // Get server-side session
@@ -9,7 +10,7 @@ export async function getUserIdFromToken(req: Request) {
   
   // Get token from request
   const token = await getToken({
-    req: req as any,
+    req: req as unknown as NextApiRequest,
     secret: process.env.NEXTAUTH_SECRET,
   });
 

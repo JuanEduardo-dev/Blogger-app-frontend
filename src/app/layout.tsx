@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Provider } from "@/components/ui/provider"; // Importa tu Provider personalizado
+import { Provider } from "@/components/ui/ChakraUI/provider"; // Importa tu Provider personalizado
 import { getServerSession } from "next-auth";
 import SessionProviderClientComponent from "@/components/layout/SessionProviderClientComponent/SessionProviderClientComponent";
-
+import { Toaster } from "@/components/ui/Shadcn/toaster";
+import { UserProvider } from './context/UserContext';
 export const metadata: Metadata = {
   title: "PropuestasPerú",
   description: "Proyecto del curso de realidad nacional",
@@ -27,12 +28,15 @@ export default async function RootLayout({
       </head>
       <body>
         <SessionProviderClientComponent session={session}>
-          <Navbar />
-            <Provider>
-              <main>{children}</main>
-            </Provider>
-          <Footer />
+          <Provider>
+            <UserProvider>
+              <Navbar />
+                <main>{children}</main>  
+              <Footer />
+            </UserProvider>
+          </Provider>
         </SessionProviderClientComponent>
+        <Toaster />
       </body>
     </html>
   );

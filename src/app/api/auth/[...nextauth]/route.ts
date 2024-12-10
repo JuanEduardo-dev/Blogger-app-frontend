@@ -1,4 +1,4 @@
-//blogger-front/src/app/api/auth/[...nextauth]/route.ts
+// //blogger-front/src/app/api/auth/[...nextauth]/route.ts
 
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -12,20 +12,13 @@ interface Credentials {
   password: string;
 }
 
-// Definir el tipo para la respuesta del usuario después de la autenticación
-/*interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-}*/
-
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password", placeholder: "*****" },
+        email: { label: "Email", type: "text", placeholder: "" },
+        password: { label: "Password", type: "password", placeholder: "" },
       },
       async authorize(credentials: Credentials | undefined) {
         // Verificamos que las credenciales no sean `undefined`
@@ -52,12 +45,12 @@ const authOptions: NextAuthOptions = {
         const matchPassword = await bcrypt.compare(credentials.password, userFound.password);
 
         if (!matchPassword) throw new Error("Contraseña incorrecta");
-        //console.log(userFound)
+
         // Retornamos la información del usuario si la autenticación fue exitosa
         return {
           id: userFound.id,
           name: `${userFound.name} ${userFound.lastName}`,
-          email: userFound.mail,
+          email: userFound.mail
         };
       },
     }),
@@ -78,48 +71,54 @@ const authOptions: NextAuthOptions = {
     async signIn({ user, account }) {
       if (account?.provider === "google") {
         try {
-          // Busca si el usuario ya existe en tu base de datos
+          // Find or create user using email
           let existingUser = await db.user.findUnique({
             where: { mail: user.email! }
           });
-
-          // Si no existe, crea un nuevo usuario
+    
+          // If user doesn't exist, create a new user
           if (!existingUser) {
             existingUser = await db.user.create({
               data: {
                 mail: user.email!,
                 name: user.name?.split(' ')[0] || '',
                 lastName: user.name?.split(' ')[1] || '',
-                // Agrega un degreeId por defecto si es necesario
-                degreeId: 1, // Ajusta esto según tu lógica
-                // No incluyas password para usuarios de Google
+                degreeId: 1, // Default degree ID
               }
             });
           }
-
+    
+          // Modify the user object to use the database ID
+          user.id = existingUser.id;
+    
           return true;
         } catch (error) {
-          console.error("Error en el inicio de sesión de Google:", error);
+          console.error("Error in Google Sign-In:", error);
           return false;
         }
       }
       return true;
     },
 
-    // Personaliza la sesión para incluir información del usuario
-    async session({ session, token }) {
-      if (token.sub) {
-        // Busca el usuario en la base de datos
-        const user = await db.user.findUnique({
+    async jwt({ token, user, account }) {
+      // If user is logging in for the first time
+      if (user) {
+        token.id = user.id;
+      }
+    
+      // For Google Sign-In, explicitly find and set the database user ID
+      if (account?.provider === "google") {
+        const existingUser = await db.user.findUnique({
           where: { mail: token.email! }
         });
-
-        if (user) {
-          session.user.id = user.id;
-          session.user.name = `${user.name} ${user.lastName}`;
+    
+        if (existingUser) {
+          // Always use the database user ID, not the Google-provided ID
+          token.id = existingUser.id;
         }
       }
-      return session;
+    
+      return token;
     }
   },
   pages: {
@@ -130,6 +129,10 @@ const authOptions: NextAuthOptions = {
     maxAge: 24 * 60 * 60, // 24 horas
     // Actualizar la sesión cada vez que hay actividad
     updateAge: 60 * 60, // 1 hora
+  },
+  // Configuración de JWT para mayor seguridad
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
   }
 };
 

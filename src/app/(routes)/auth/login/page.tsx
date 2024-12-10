@@ -73,8 +73,8 @@ function LoginPage() {
     <div className="h-[calc(100svh-114px)] flex flex-row items-center justify-center">
       <div className="flex flex-col justify-center items-center space-y-4 w-full lg:w-1/2 ml-4 mr-4 lg:mg-0">
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 sm:mb-2 hidden sm:block">Iniciar Sesión</h1>
-          <p className="text-gray-500 text-base block">Transforma tus ideas en propuestas innovadoras.</p>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 sm:mb-2">Iniciar Sesión</h1>
+          <p className="text-gray-500 text-base hidden sm:block">Transforma tus ideas en propuestas innovadoras.</p>
         </div>
         <div className="w-full max-w-md bg-white rounded-xl p-6 border border-gray-200 shadow-[0_4px_24px_0_#00000004,0_4px_32px_0_#00000004,0_2px_64px_0_#00000003,0_16px_32px_0_#00000003]">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

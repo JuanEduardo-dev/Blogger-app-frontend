@@ -1,5 +1,5 @@
-"use client"
-import React, { useEffect } from 'react';
+"use client";
+import React, { useEffect } from "react";
 import { Comments, CommentCount } from "@hyvor/hyvor-talk-react";
 import { CommentCounts } from "@hyvor/hyvor-talk-base";
 
@@ -9,10 +9,10 @@ interface HyvorCommentsProps {
   title?: string;
 }
 
-const HyvorComments: React.FC<HyvorCommentsProps> = ({ 
-  websiteId, 
-  pageId, 
-  title 
+const HyvorComments: React.FC<HyvorCommentsProps> = ({
+  websiteId,
+  pageId,
+  title,
 }) => {
   useEffect(() => {
     // Cargar contadores de comentarios
@@ -37,7 +37,7 @@ export const HyvorCommentCount: React.FC<{
   websiteId: number, 
   pageId: string 
 }> = ({ websiteId, pageId }) => {
-  return <CommentCount page-id={pageId} />;
+  return <CommentCount page-id={pageId} website-id={websiteId} />;
 };
 
 export default HyvorComments;
